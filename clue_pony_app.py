@@ -1,5 +1,7 @@
 # A very simple Clue Pony Alpha app to get started with...
 # This version is from the Github
+# This is the latest edit. Written in Gut Hub. Posted to PythonAnywhere
+
 import os
 import string
 import validators
