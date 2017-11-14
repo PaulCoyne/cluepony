@@ -1,4 +1,5 @@
 # A very simple Clue Pony Alpha app to get started with...
+# This version is from the Github
 import os
 import string
 import validators
