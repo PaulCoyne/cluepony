@@ -3,6 +3,7 @@
 # This is the latest edit. Written in Gut Hub. Posted to PythonAnywhere
 # This is an edit made 11:39. Push'ed to Pythonanywhere?
 # Cloned git 12:42. Fresh start?!
+# Pushed from PA OK - now commit to PA from GH?
 
 
 import os
