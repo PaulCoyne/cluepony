@@ -31,42 +31,51 @@
         </nav>
 
 
-        <div class="container">
 
-            {% for comment in comments %}
+
+
+    <div class="container">
+
+        {% for cluepony in clueponies %}
+            <div class="row" style="margin-bottom: 1ex">
+                <div>
+                    Teaching Resource: {{ cluepony.content }}
+                </div>
                 <div class="row" style="margin-bottom: 1ex">
-                    <div>
-                        {{ comment.content }}
-                    </div>
-                    <div>
-                        <small>
-                            Posted
-                            {% if comment.posted %}
-                                {{ comment.posted.strftime("%A, %d %B %Y at %H:%M") }}
-                            {% else %}
-                                at an unknown time
-                            {% endif %}
-                            by
-                            {% if comment.commenter %}
-                                {{ comment.commenter.username }}
-                            {% else %}
-                                anonymous
-                            {% endif %}
-                        </small>
-                    </div>
+                    Your new Cluepony address for sharing: <a href="http://cluepony.com/{{ cluepony.encoded_url }}">http://www.cluepony.com/{{ cluepony.encoded_url }}</a>
                 </div>
-            {% endfor %}
+                <div>
 
-            {% if current_user.is_authenticated %}
-                <div class="row">
-                    <form action="." method="POST">
-                        <textarea name="contents" placeholder="Enter a comment" class="form-control"></textarea>
-                        <input type="submit" class="btn btn-success" value="Post comment">
-                    </form>
+                    <small>
+                        Posted
+                        {% if cluepony.posted %}
+                            {{ cluepony.posted.strftime("%A, %d %B %Y at %H:%M") }}
+                        {% else %}
+                            at an unknown time
+                        {% endif %}
+                        by
+                        {% if cluepony.publisher %}
+                            {{ cluepony.publisher.username }}
+                        {% else %}
+                            anonymous
+                        {% endif %}
+                    </small>
+
                 </div>
-            {% endif %}
+            </div>
+        {% endfor %}
 
-        </div><!-- /.container -->
+        {% if current_user.is_authenticated %}
+            <div class="row">
+                <form action="." method="POST">
+                    <textarea name="contents" placeholder="Enter a URL to create a new Clue Pony" class="form-control"></textarea>
+                    <input type="submit" class="btn btn-success" value="Post comment">
+                </form>
+            </div>
+        {% endif %}
+
+    </div><!-- /.container -->
+
 
     </body>
 </html

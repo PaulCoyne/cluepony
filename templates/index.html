@@ -6,24 +6,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v4.4.1, mobirise.com">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="/static/images/0b19ab-75f25746cbce4514b4df1f26af03721c-mv2-180x160.png" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" type="image/x-icon">
   <meta name="description" content="">
   <title>Home</title>
-  <link rel="stylesheet" href="/static/web/assets/mobirise-icons/mobirise-icons.css">
-  <link rel="stylesheet" href="/static/tether/tether.min.css">
-  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="/static/socicon/css/styles.css">
-  <link rel="stylesheet" href="/static/dropdown/css/style.css">
-  <link rel="stylesheet" href="/static/theme/css/style.css">
-  <link rel="stylesheet" href="/static/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/socicon/css/styles.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
 
 
 </head>
 <body>
-<section class="menu cid-qAFUngtB2p" once="menu" id="menu2-0" data-rv-view="1503">
+<section class="menu cid-qAFUngtB2p" once="menu" id="menu2-0" data-rv-view="241">
 
 
 
@@ -55,12 +55,19 @@
                     </a></li>
                 <li class="nav-item"><a class="nav-link link text-black display-4" href="index.html#content5-g">
                         Pricing</a></li></ul>
-            <div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-primary display-7" href="publishers.html"><span class="mbri-unlock mbr-iconfont mbr-iconfont-btn"></span><font face="MobiriseIcons"><span style="font-size: 25.6px;">Login/Signup</span></font> &nbsp; &nbsp; &nbsp;&nbsp;</a></div>
+            <div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-primary display-4" href="#top"><font face="MobiriseIcons"><br></font>Login/Signup &nbsp; &nbsp;</a></div>
         </div>
+        <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Log in</a></li>
+                {% endif %}
+            </ul>
     </nav>
 </section>
 
-<section class="engine"><a href="https://mobirise.co/b">web site creator</a></section><section class="header1 cid-qAFUYTWSSF mbr-parallax-background" id="header1-3" data-rv-view="1505">
+<section class="engine"><a href="https://mobirise.co/m">bootstrap table</a></section><section class="header1 cid-qAFUYTWSSF mbr-parallax-background" id="header1-3" data-rv-view="243">
 
 
 
@@ -84,7 +91,7 @@
 
 </section>
 
-<section class="mbr-section content4 cid-qAMLCoMKmd" id="content4-12" data-rv-view="1508">
+<section class="mbr-section content4 cid-qAMLCoMKmd" id="content4-12" data-rv-view="246">
 
 
 
@@ -99,7 +106,7 @@
     </div>
 </section>
 
-<section class="features2 cid-qAHJOBv0Ed" id="features2-b" data-rv-view="1510">
+<section class="features2 cid-qAHJOBv0Ed" id="features2-b" data-rv-view="248">
 
 
 
@@ -110,7 +117,7 @@
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper">
                     <div class="card-img">
-                        <img src="/static/images/704b9ad6a6d84fbb9b2292428bdafb2d-602x560.png" alt="Mobirise" title="" media-simple="true">
+                        <img src="assets/images/704b9ad6a6d84fbb9b2292428bdafb2d-602x560.png" alt="Mobirise" title="" media-simple="true">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">Resource linking</h4>
@@ -122,7 +129,7 @@
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper">
                     <div class="card-img">
-                        <img src="/static/images/204ee1071fdc4652ab3a4c046f664da2-602x560.png" alt="Mobirise" title="" media-simple="true">
+                        <img src="assets/images/204ee1071fdc4652ab3a4c046f664da2-602x560.png" alt="Mobirise" title="" media-simple="true">
                     </div>
                     <div class="card-box ">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">Pre-print services for publishers</h4>
@@ -134,7 +141,7 @@
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper">
                     <div class="card-img">
-                        <img src="/static/images/e77fd1ddd12e4652b471fe86db43b889-602x560.png" alt="Mobirise" title="" media-simple="true">
+                        <img src="assets/images/e77fd1ddd12e4652b471fe86db43b889-602x560.png" alt="Mobirise" title="" media-simple="true">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -149,7 +156,7 @@
     </div>
 </section>
 
-<section class="clients cid-qAMN8ioRu7" id="clients-13" data-rv-view="1513">
+<section class="clients cid-qAMN8ioRu7" id="clients-13" data-rv-view="251">
 
 
 
@@ -174,7 +181,7 @@
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
-                                <img src="/static/images/kerboodle-243x78.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
+                                <img src="assets/images/kerboodle-243x78.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
                             </div>
                         </div>
                     </div>
@@ -182,7 +189,7 @@
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
-                                <img src="/static/images/letterland-453x111.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
+                                <img src="assets/images/letterland-453x111.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
                             </div>
                         </div>
                     </div>
@@ -190,7 +197,7 @@
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
-                                <img src="/static/images/tes-resources-square-276x275.jpg" class="img-responsive clients-img" alt="" title="" media-simple="true">
+                                <img src="assets/images/tes-resources-square-276x275.jpg" class="img-responsive clients-img" alt="" title="" media-simple="true">
                             </div>
                         </div>
                     </div>
@@ -198,7 +205,7 @@
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
-                                <img src="/static/images/65ca8612b2876fab2bfe1374cdb65102-learning-log-logs-400x400.jpg" class="img-responsive clients-img" alt="" title="" media-simple="true">
+                                <img src="assets/images/65ca8612b2876fab2bfe1374cdb65102-learning-log-logs-400x400.jpg" class="img-responsive clients-img" alt="" title="" media-simple="true">
                             </div>
                         </div>
                     </div>
@@ -206,7 +213,7 @@
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
-                                <img src="/static/images/showcase-logo-hodder-200x200.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
+                                <img src="assets/images/showcase-logo-hodder-200x200.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
                             </div>
                         </div>
                     </div>
@@ -225,7 +232,7 @@
     </div>
 </section>
 
-<section class="mbr-section content5 cid-qALGIAOd2s mbr-parallax-background" id="content5-g" data-rv-view="1527">
+<section class="mbr-section content5 cid-qALGIAOd2s mbr-parallax-background" id="content5-g" data-rv-view="265">
 
 
 
@@ -245,7 +252,7 @@
     </div>
 </section>
 
-<section class="cid-qALBVkdCUO" id="pricing-tables2-f" data-rv-view="1530">
+<section class="cid-qALBVkdCUO" id="pricing-tables2-f" data-rv-view="268">
 
 
 
@@ -361,7 +368,7 @@
     </div>
 </section>
 
-<section class="mbr-section content4 cid-qANKGwtZJu" id="content4-1e" data-rv-view="1533">
+<section class="mbr-section content4 cid-qANKGwtZJu" id="content4-1e" data-rv-view="271">
 
 
 
@@ -378,7 +385,7 @@
     </div>
 </section>
 
-<section class="cid-qANKzUIARM" id="pricing-tables3-1d" data-rv-view="1535">
+<section class="cid-qANKzUIARM" id="pricing-tables3-1d" data-rv-view="273">
 
 
 
@@ -459,7 +466,7 @@
     </div>
 </section>
 
-<section class="footer3 cid-qAFVJfMkjS" id="footer3-7" data-rv-view="1538">
+<section class="footer3 cid-qAFVJfMkjS" id="footer3-7" data-rv-view="276">
 
 
 
@@ -470,7 +477,7 @@
             <div class="col-md-2 col-sm-4">
                 <div class="mb-3 img-logo">
                     <a href="http://www.cluepony.com">
-                         <img src="/static/images/0b19ab-75f25746cbce4514b4df1f26af03721c-mv2-180x160.png" alt="Mobirise" title="" media-simple="true">
+                         <img src="assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Mobirise" title="" media-simple="true">
                     </a>
                 </div>
                 <p class="mbr-fonts-style foot-logo display-7">
@@ -502,7 +509,7 @@
                     </div>
 
                     <form class="form-inline" action="https://mobirise.com/" method="post" data-form-title="Mobirise Form">
-                        <input type="hidden" value="tKnmLigAh74gPJ1Vg/li+MYftQrWSO604ZCqU5CaTg/8CEnND0YFCbsgLVO8y9tLvYjp2xtVkfk1imEgfzaRgUttt48QB1mLbqNemDVoWbeYzEBY+Il1f9kxp7JjyUBo" data-form-email="true">
+                        <input type="hidden" value="Ihow/eXwP5pPKhl0AFDMedDDZOuqwWJWyGs05OZiG/t+IoAjr3jrop8jR50+mc2b37t3udg+ssK8aCWNNsFzz1ZM4XK473HwHF7nqTJFn/j0CNOZgtRaFbKvvILJjQgn" data-form-email="true">
                         <div class="form-group">
                             <input type="email" class="form-control input-sm input-inverse my-2" name="email" required="" data-form-field="Email" placeholder="Email" id="email-footer3-7">
                         </div>
@@ -566,17 +573,17 @@
 </section>
 
 
-  <script src="/static/web/assets/jquery/jquery.min.js"></script>
-  <script src="/static/popper/popper.min.js"></script>
-  <script src="/static/tether/tether.min.js"></script>
-  <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/static/smooth-scroll/smooth-scroll.js"></script>
-  <script src="/static/touch-swipe/jquery.touch-swipe.min.js"></script>
-  <script src="/static/jarallax/jarallax.min.js"></script>
-  <script src="/static/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
-  <script src="/static/dropdown/js/script.min.js"></script>
-  <script src="/static/theme/js/script.js"></script>
-  <script src="/static/formoid/formoid.min.js"></script>
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/popper/popper.min.js"></script>
+  <script src="assets/tether/tether.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/smooth-scroll/smooth-scroll.js"></script>
+  <script src="assets/touch-swipe/jquery.touch-swipe.min.js"></script>
+  <script src="assets/jarallax/jarallax.min.js"></script>
+  <script src="assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
+  <script src="assets/dropdown/js/script.min.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  <script src="assets/formoid/formoid.min.js"></script>
 
 
 </body>

@@ -68,16 +68,48 @@ class Cluepony(db.Model):
 def load_user(user_id):
     return User.query.filter_by(username=user_id).first()
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def index():
     if request.method == "GET":
-        return render_template("index.html", clueponies=Cluepony.query.all())
+        return render_template("index.html")
+
+
+@app.route("/login/", methods=["GET", "POST"])
+def login():
+    if request.method == "GET":
+        return render_template("login.html", error=False)
+
+    user = load_user(request.form["username"])
+    if user is None:
+        return render_template("login.html", error=True)
+
+    if not user.check_password(request.form["password"]):
+        return render_template("login.html", error=True)
+
+    login_user(user)
+    return redirect(url_for('index'))
+
+@app.route("/publishers/", methods=["GET", "POST"])
+def publishers_page():
+    if request.method == "GET":
+         return render_template("publisher.html", error=False)
+
+
+@app.route("/about/", methods=["GET", "POST"])
+def about_page():
+    if request.method == "GET":
+         return render_template("about.html", error=False)
+
+@app.route("/gallery/", methods=["GET", "POST"])
+def gallery():
+    if request.method == "GET":
+        return render_template("gallery.html", clueponies=Cluepony.query.all())
 
     if not current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('gallery'))
 
     if not validators.url(request.form["contents"]):
-        return redirect(url_for('index'))
+        return redirect(url_for('gallery'))
 
     LastRow = Cluepony.query.count()
     url = su.encode_url(LastRow)
@@ -85,29 +117,7 @@ def index():
     db.session.add(cluepony)
     db.session.commit()
 
-
-    return redirect(url_for('index'))
-
-@app.route("/login/", methods=["GET", "POST"])
-def login():
-    if request.method == "GET":
-        return render_template("login_page.html", error=False)
-
-    user = load_user(request.form["username"])
-    if user is None:
-        return render_template("login_page.html", error=True)
-
-    if not user.check_password(request.form["password"]):
-        return render_template("login_page.html", error=True)
-
-    login_user(user)
-    return redirect(url_for('index'))
-
-@app.route("/publishers.html/", methods=["GET", "POST"])
-def publishers_page():
-    if request.method == "GET":
-         return render_template("publishers.html", error=False)
-
+    return redirect(url_for('gallery'))
 
 
 @app.route('/<short_url>')
@@ -136,6 +146,9 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
