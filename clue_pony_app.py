@@ -2,6 +2,7 @@
 # This version is from the Github
 # This is the latest edit. Written in Gut Hub. Posted to PythonAnywhere
 # This is an edit made 11:39. Push'ed to Pythonanywhere?
+# Cloned git 12:42. Fresh start?!
 
 
 import os
