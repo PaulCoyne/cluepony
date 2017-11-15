@@ -46,17 +46,11 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(128))
     password_hash = db.Column(db.String(128))
 
-
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-
     def get_id(self):
         return self.username
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.filter_by(username=user_id).first()
 
 class Cluepony(db.Model):
 
@@ -69,6 +63,10 @@ class Cluepony(db.Model):
     publisher_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     publisher = db.relationship('User', foreign_keys=publisher_id)
 
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.filter_by(username=user_id).first()
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -105,6 +103,13 @@ def login():
     login_user(user)
     return redirect(url_for('index'))
 
+@app.route("/publishers.html/", methods=["GET", "POST"])
+def publishers_page():
+    if request.method == "GET":
+         return render_template("publishers.html", error=False)
+
+
+
 @app.route('/<short_url>')
 def decode(short_url):
     Destination_URL = Cluepony.query.filter_by(encoded_url=short_url).first()
@@ -131,9 +136,6 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/pony')
-def hello():
-    return redirect("http://www.bbc.co.uk", code=302)
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
