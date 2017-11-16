@@ -7,9 +7,7 @@
 
 
 import os
-import string
 import validators
-import bcrypt
 from datetime import datetime
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -77,6 +75,14 @@ class Cluepony(db.Model):
     publisher_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     publisher = db.relationship('User', foreign_keys=publisher_id)
 
+class CluePonyEvent(db.Model):
+
+    __tablename__ = "events"
+
+    id = db.Column(db.Integer, primary_key=True)
+    event_date = db.Column(db.DateTime, default=datetime.now)
+    event_id = db.Column(db.Integer, db.ForeignKey('clueponies.id'))
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -96,7 +102,6 @@ def login():
     user = load_user(request.form["username"])
 
     if user is None:
-        #hashpass = bcrypt.hashpw(request.form["password"], bcrypt.genSalt())
         user = User(username=request.form["username"], email=request.form["email"],password_hash=request.form["password"])
         db.session.add(user)
         db.session.commit()
@@ -143,6 +148,13 @@ def generator():
 @app.route('/<short_url>')
 def decode(short_url):
     Destination_URL = Cluepony.query.filter_by(encoded_url=short_url).first()
+
+    event_time = datetime.now
+
+    event = CluePonyEvent(event_date=event_time)
+    db.session.add(event)
+    db.session.commit()
+
     redirect_url = Destination_URL.content
     try:
         return redirect(redirect_url)
