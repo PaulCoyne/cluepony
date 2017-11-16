@@ -6,27 +6,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v4.4.1, mobirise.com">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" type="image/x-icon">
+  <link rel="shortcut icon" href="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" type="image/x-icon">
   <meta name="description" content="About Clue Pony">
   <title>About</title>
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
-  <link rel="stylesheet" href="assets/tether/tether.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="assets/data-tables/data-tables.bootstrap4.min.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-  
-  
-  
+  <link rel="stylesheet" href="/assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="/assets/tether/tether.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+  <link rel="stylesheet" href="/assets/data-tables/data-tables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/assets/theme/css/style.css">
+  <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
+
+
+
 </head>
 <body>
 <section class="menu cid-qAFUngtB2p" once="menu" id="menu2-i" data-rv-view="279">
 
-    
+
 
     <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
             <div class="navbar-brand">
                 <span class="navbar-logo">
                     <a href="index.html">
-                        <img src="assets/images/0b19ab-75f25746cbce4514b4df1f26af03721c-mv2-180x160.png" alt="Cluepony" title="" media-simple="true" style="height: 3.8rem;">
+                        <img src="/assets/images/0b19ab-75f25746cbce4514b4df1f26af03721c-mv2-180x160.png" alt="Cluepony" title="" media-simple="true" style="height: 3.8rem;">
                     </a>
                 </span>
                 <span class="navbar-caption-wrap"><a class="navbar-caption text-primary display-5" href="https://mobirise.com">
@@ -56,14 +56,21 @@
                     </a></li>
                 <li class="nav-item"><a class="nav-link link text-black display-4" href="index.html#content5-g">
                         Pricing</a></li></ul>
-            <div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-primary display-4" href="#top"><font face="MobiriseIcons"><br></font>Login/Signup &nbsp; &nbsp;</a></div>
+            <div class="navbar-buttons mbr-section-btn">
+                {% if current_user.is_authenticated %}
+                    <a class="btn btn-sm btn-primary display-4" href="{{ url_for('logout') }}"><font face="MobiriseIcons"><br></font>Logout &nbsp; &nbsp;</a>
+                {% else %}
+                    <a class="btn btn-sm btn-primary display-4" href="{{ url_for('login') }}"><font face="MobiriseIcons"><br></font>Login/Signup &nbsp; &nbsp;</a>
+                {% endif %}
+
+            </div>
         </div>
     </nav>
 </section>
 
 <section class="engine"><a href="https://mobirise.co">Mobirise</a></section><section class="header6 cid-qAMG8qrwc0 mbr-fullscreen" data-bg-video="http://www.youtube.com/watch?v=uNCr7NdOJgw" id="header6-t" data-rv-view="281">
 
-    
+
 
     <div class="mbr-overlay" style="opacity: 0.2; background-color: rgb(0, 0, 0);">
     </div>
@@ -90,15 +97,15 @@
 </section>
 
 <section class="mbr-section article content11 cid-qAMHAFQQi1" id="content11-v" data-rv-view="285">
-     
+
 
     <div class="container">
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                    <li><strong>SUBMIT A LINK</strong> - no special actions required, all sites you make with Mobirise are mobile-friendly. You don't have to create a special mobile version of your site, it will adapt automagically. <a href="https://mobirise.com/">Try it now!</a></li>
-                    <li><strong>INCLUDE THE LINK IN MARKETING AND LESSONS</strong>&nbsp;- cut down the development time with drag-and-drop website builder. Drop the blocks into the page, edit content inline and publish - no technical skills required. <a href="https://mobirise.com/">Try it now!</a></li>
-                    <li><strong>MEASURE LINK USAGE</strong>- choose from the large selection of latest pre-made blocks - full-screen intro, bootstrap carousel, content slider, responsive image gallery with lightbox, parallax scrolling, video backgrounds, hamburger menu, sticky header and more. <a href="https://mobirise.com/">Try it now!</a></li>
+                    <li><strong>SUBMIT A LINK</strong> - Paste the URL of your resource into our Clue Pony generator, click submit. <a href="https://mobirise.com/">Try it now!</a></li>
+                    <li><strong>INCLUDE THE LINK IN MARKETING AND LESSONS</strong>&nbsp;- Share the link as an email or add it to your Google Classroom resources. <a href="https://mobirise.com/">Try it now!</a></li>
+                    <li><strong>MEASURE LINK USAGE</strong>- Every Clue Pony link is recorded. Dive into the data to learn more and see which resources are used by teaching professionals <a href="https://mobirise.com/">Try it now!</a></li>
                 </ol>
             </div>
         </div>
@@ -106,8 +113,8 @@
 </section>
 
 <section class="mbr-section article content9 cid-qAMHWxCYZh" id="content9-z" data-rv-view="286">
-    
-     
+
+
 
     <div class="container">
         <div class="inner-container" style="width: 100%;">
@@ -121,8 +128,8 @@
 
 <section class="section-table cid-qANPyTaVux" id="table1-1f" data-rv-view="288">
 
-  
-  
+
+
   <div class="container container-table">
       <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
           Clue Pony Usage</h2>
@@ -144,39 +151,39 @@
           <table class="table isSearch" cellspacing="0">
             <thead>
               <tr class="table-heads ">
-                  
-                  
-                  
-                  
+
+
+
+
               <th class="head-item mbr-fonts-style display-7">
                       Clue Pony Short URL</th><th class="head-item mbr-fonts-style display-7">Clicks</th><th class="head-item mbr-fonts-style display-7">Pub Date</th><th class="head-item mbr-fonts-style display-7">Clue Pony Value</th></tr>
             </thead>
 
             <tbody>
-              
-              
-              
-              
-            <tr> 
-                
-                
-                
-                
+
+
+
+
+            <tr>
+
+
+
+
               <td class="body-item mbr-fonts-style display-7">/edfcg</td><td class="body-item mbr-fonts-style display-7">44</td><td class="body-item mbr-fonts-style display-7">2016-10-17</td><td class="body-item mbr-fonts-style display-7">$317.000</td></tr><tr>
-                
-                
-                
-                
+
+
+
+
               <td class="body-item mbr-fonts-style display-7">/cvfgh</td><td class="body-item mbr-fonts-style display-7">35</td><td class="body-item mbr-fonts-style display-7">2013-04-12</td><td class="body-item mbr-fonts-style display-7">$445.500</td></tr><tr>
-                
-                
-                
-                
+
+
+
+
               <td class="body-item mbr-fonts-style display-7">/fds4f</td><td class="body-item mbr-fonts-style display-7">66</td><td class="body-item mbr-fonts-style display-7">2016-05-22</td><td class="body-item mbr-fonts-style display-7">$152.558</td></tr><tr>
-                
-                
-                
-                
+
+
+
+
               <td class="body-item mbr-fonts-style display-7">/3423</td><td class="body-item mbr-fonts-style display-7">70</td><td class="body-item mbr-fonts-style display-7">2016-05-15</td><td class="body-item mbr-fonts-style display-7">$459.146</td></tr></tbody>
           </table>
         </div>
@@ -201,9 +208,9 @@
 
 <section class="counters2 counters cid-qAO4r5JtQS" id="counters2-1i" data-rv-view="345">
 
-    
 
-    
+
+
 
     <div class="container pt-4 mt-2">
         <div class="media-container-row">
@@ -211,10 +218,10 @@
                 <h2 class="mbr-section-title pb-3 align-left mbr-fonts-style display-2">
                     Usage Dashboards</h2>
                 <h3 class="mbr-section-subtitle pb-5 align-left mbr-fonts-style display-5">
-                    Key metrics for Clue Pony links to educational resources. 
+                    Key metrics for Clue Pony links to educational resources.
                 </h3>
                 <div class="mbr-figure">
-                    <img src="assets/images/istock-000008424489xsmall-346x347.jpg" alt="" title="" media-simple="true">
+                    <img src="/assets/images/istock-000008424489xsmall-346x347.jpg" alt="" title="" media-simple="true">
                 </div>
             </div>
             <div class="cards-block">
@@ -285,9 +292,9 @@
 
 <section class="toggle1 cid-qAMIaat202" id="toggle1-11" data-rv-view="348">
 
-    
 
-    
+
+
         <div class="container">
             <div class="media-container-row">
                 <div class="col-12 col-md-8">
@@ -340,9 +347,9 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
-                        
+
+
+
                     </div>
                 </div>
             </div>
@@ -351,16 +358,16 @@
 
 <section class="footer3 cid-qANJ8KmT7p" id="footer3-1b" data-rv-view="351">
 
-    
 
-    
+
+
 
     <div class="container">
         <div class="media-container-row content">
             <div class="col-md-2 col-sm-4">
                 <div class="mb-3 img-logo">
                     <a href="http://www.cluepony.com">
-                         <img src="assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Mobirise" title="" media-simple="true">
+                         <img src="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Mobirise" title="" media-simple="true">
                     </a>
                 </div>
                 <p class="mbr-fonts-style foot-logo display-7">
@@ -457,16 +464,16 @@
 
 <section class="footer3 cid-qAT3GIvLjM" id="footer3-1k" data-rv-view="354">
 
-    
 
-    
+
+
 
     <div class="container">
         <div class="media-container-row content">
             <div class="col-md-2 col-sm-4">
                 <div class="mb-3 img-logo">
                     <a href="http://www.cluepony.com">
-                         <img src="assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Mobirise" title="" media-simple="true">
+                         <img src="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Mobirise" title="" media-simple="true">
                     </a>
                 </div>
                 <p class="mbr-fonts-style foot-logo display-7">
@@ -563,16 +570,16 @@
 
 <section class="footer3 cid-qAT3GJJIJn" id="footer3-1j" data-rv-view="357">
 
-    
 
-    
+
+
 
     <div class="container">
         <div class="media-container-row content">
             <div class="col-md-2 col-sm-4">
                 <div class="mb-3 img-logo">
                     <a href="http://www.cluepony.com">
-                         <img src="assets/images/0b19ab-75f25746cbce4514b4df1f26af03721c-mv2-180x160.png" alt="Mobirise" title="" media-simple="true">
+                         <img src="/assets/images/0b19ab-75f25746cbce4514b4df1f26af03721c-mv2-180x160.png" alt="Mobirise" title="" media-simple="true">
                     </a>
                 </div>
                 <p class="mbr-fonts-style foot-logo display-7">
@@ -668,21 +675,21 @@
 </section>
 
 
-  <script src="assets/web/assets/jquery/jquery.min.js"></script>
-  <script src="assets/popper/popper.min.js"></script>
-  <script src="assets/tether/tether.min.js"></script>
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/smooth-scroll/smooth-scroll.js"></script>
-  <script src="assets/dropdown/js/script.min.js"></script>
-  <script src="assets/jquery-mb-ytplayer/jquery.mb.ytplayer.min.js"></script>
-  <script src="assets/jquery-mb-vimeo_player/jquery.mb.vimeo_player.js"></script>
-  <script src="assets/data-tables/jquery.data-tables.min.js"></script>
-  <script src="assets/data-tables/data-tables.bootstrap4.min.js"></script>
-  <script src="assets/viewport-checker/jquery.viewportchecker.js"></script>
-  <script src="assets/touch-swipe/jquery.touch-swipe.min.js"></script>
-  <script src="assets/theme/js/script.js"></script>
-  <script src="assets/formoid/formoid.min.js"></script>
-  
-  
+  <script src="/assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/popper/popper.min.js"></script>
+  <script src="/assets/tether/tether.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/assets/smooth-scroll/smooth-scroll.js"></script>
+  <script src="/assets/dropdown/js/script.min.js"></script>
+  <script src="/assets/jquery-mb-ytplayer/jquery.mb.ytplayer.min.js"></script>
+  <script src="/assets/jquery-mb-vimeo_player/jquery.mb.vimeo_player.js"></script>
+  <script src="/assets/data-tables/jquery.data-tables.min.js"></script>
+  <script src="/assets/data-tables/data-tables.bootstrap4.min.js"></script>
+  <script src="/assets/viewport-checker/jquery.viewportchecker.js"></script>
+  <script src="/assets/touch-swipe/jquery.touch-swipe.min.js"></script>
+  <script src="/assets/theme/js/script.js"></script>
+  <script src="/assets/formoid/formoid.min.js"></script>
+
+
 </body>
 </html>

@@ -6,18 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v4.4.1, mobirise.com">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" type="image/x-icon">
+  <link rel="shortcut icon" href="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" type="image/x-icon">
   <meta name="description" content="">
   <title>Home</title>
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
-  <link rel="stylesheet" href="assets/tether/tether.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" href="/assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="/assets/tether/tether.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+  <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="/assets/theme/css/style.css">
+  <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
 
 
 
@@ -40,7 +40,7 @@
             <div class="navbar-brand">
                 <span class="navbar-logo">
                     <a href="index.html">
-                        <img src="/static/images/0b19ab-75f25746cbce4514b4df1f26af03721c-mv2-180x160.png" alt="Cluepony" title="" media-simple="true" style="height: 3.8rem;">
+                        <img src="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Cluepony" title="" media-simple="true" style="height: 3.8rem;">
                     </a>
                 </span>
                 <span class="navbar-caption-wrap"><a class="navbar-caption text-primary display-5" href="https://mobirise.com">
@@ -49,21 +49,21 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item">
-                    <a class="nav-link link text-black display-4" href="index.html">Home</a>
-                </li><li class="nav-item"><a class="nav-link link text-black display-4" href="about.html">About Us</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="index.html#content4-12">
+                    <a class="nav-link link text-black display-4" href="/">Home</a>
+                </li><li class="nav-item"><a class="nav-link link text-black display-4" href="about">About Us</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="index.html#content4-12">
                         Services
                     </a></li>
                 <li class="nav-item"><a class="nav-link link text-black display-4" href="index.html#content5-g">
                         Pricing</a></li></ul>
-            <div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-primary display-4" href="#top"><font face="MobiriseIcons"><br></font>Login/Signup &nbsp; &nbsp;</a></div>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
+            <div class="navbar-buttons mbr-section-btn">
                 {% if current_user.is_authenticated %}
-                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                    <a class="btn btn-sm btn-primary display-4" href="{{ url_for('logout') }}"><font face="MobiriseIcons"><br></font>Logout &nbsp; &nbsp;</a>
                 {% else %}
-                    <li><a href="{{ url_for('login') }}">Log in</a></li>
+                    <a class="btn btn-sm btn-primary display-4" href="{{ url_for('login') }}"><font face="MobiriseIcons"><br></font>Login/Signup &nbsp; &nbsp;</a>
                 {% endif %}
-            </ul>
+
+            </div>
+        </div>
     </nav>
 </section>
 
@@ -117,7 +117,7 @@
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper">
                     <div class="card-img">
-                        <img src="assets/images/704b9ad6a6d84fbb9b2292428bdafb2d-602x560.png" alt="Mobirise" title="" media-simple="true">
+                        <img src="/assets/images/704b9ad6a6d84fbb9b2292428bdafb2d-602x560.png" alt="Mobirise" title="" media-simple="true">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">Resource linking</h4>
@@ -129,7 +129,7 @@
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper">
                     <div class="card-img">
-                        <img src="assets/images/204ee1071fdc4652ab3a4c046f664da2-602x560.png" alt="Mobirise" title="" media-simple="true">
+                        <img src="/assets/images/204ee1071fdc4652ab3a4c046f664da2-602x560.png" alt="Mobirise" title="" media-simple="true">
                     </div>
                     <div class="card-box ">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">Pre-print services for publishers</h4>
@@ -141,7 +141,7 @@
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper">
                     <div class="card-img">
-                        <img src="assets/images/e77fd1ddd12e4652b471fe86db43b889-602x560.png" alt="Mobirise" title="" media-simple="true">
+                        <img src="/assets/images/e77fd1ddd12e4652b471fe86db43b889-602x560.png" alt="Mobirise" title="" media-simple="true">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -181,7 +181,7 @@
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
-                                <img src="assets/images/kerboodle-243x78.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
+                                <img src="/assets/images/kerboodle-243x78.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
                             </div>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
-                                <img src="assets/images/letterland-453x111.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
+                                <img src="/assets/images/letterland-453x111.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
                             </div>
                         </div>
                     </div>
@@ -197,7 +197,7 @@
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
-                                <img src="assets/images/tes-resources-square-276x275.jpg" class="img-responsive clients-img" alt="" title="" media-simple="true">
+                                <img src="/assets/images/tes-resources-square-276x275.jpg" class="img-responsive clients-img" alt="" title="" media-simple="true">
                             </div>
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
-                                <img src="assets/images/65ca8612b2876fab2bfe1374cdb65102-learning-log-logs-400x400.jpg" class="img-responsive clients-img" alt="" title="" media-simple="true">
+                                <img src="/assets/images/65ca8612b2876fab2bfe1374cdb65102-learning-log-logs-400x400.jpg" class="img-responsive clients-img" alt="" title="" media-simple="true">
                             </div>
                         </div>
                     </div>
@@ -213,7 +213,7 @@
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
-                                <img src="assets/images/showcase-logo-hodder-200x200.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
+                                <img src="/assets/images/showcase-logo-hodder-200x200.png" class="img-responsive clients-img" alt="" title="" media-simple="true">
                             </div>
                         </div>
                     </div>
@@ -477,11 +477,11 @@
             <div class="col-md-2 col-sm-4">
                 <div class="mb-3 img-logo">
                     <a href="http://www.cluepony.com">
-                         <img src="assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Mobirise" title="" media-simple="true">
+                         <img src="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Clue Pony" title="" media-simple="true">
                     </a>
                 </div>
                 <p class="mbr-fonts-style foot-logo display-7">
-                    MOBIRISE
+                    Clue Pony
                 </p>
             </div>
             <div class="col-md-3 col-sm-4">
@@ -573,17 +573,17 @@
 </section>
 
 
-  <script src="assets/web/assets/jquery/jquery.min.js"></script>
-  <script src="assets/popper/popper.min.js"></script>
-  <script src="assets/tether/tether.min.js"></script>
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/smooth-scroll/smooth-scroll.js"></script>
-  <script src="assets/touch-swipe/jquery.touch-swipe.min.js"></script>
-  <script src="assets/jarallax/jarallax.min.js"></script>
-  <script src="assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
-  <script src="assets/dropdown/js/script.min.js"></script>
-  <script src="assets/theme/js/script.js"></script>
-  <script src="assets/formoid/formoid.min.js"></script>
+  <script src="/assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/popper/popper.min.js"></script>
+  <script src="/assets/tether/tether.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/assets/smooth-scroll/smooth-scroll.js"></script>
+  <script src="/assets/touch-swipe/jquery.touch-swipe.min.js"></script>
+  <script src="/assets/jarallax/jarallax.min.js"></script>
+  <script src="/assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
+  <script src="/assets/dropdown/js/script.min.js"></script>
+  <script src="/assets/theme/js/script.js"></script>
+  <script src="/assets/formoid/formoid.min.js"></script>
 
 
 </body>

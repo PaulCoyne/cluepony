@@ -9,6 +9,7 @@
 import os
 import string
 import validators
+import bcrypt
 from datetime import datetime
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -45,12 +46,25 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128))
     password_hash = db.Column(db.String(128))
+    email = db.Column(db.String(128))
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
     def get_id(self):
         return self.username
+
+    def is_active(self):
+        """True, as all users are active."""
+        return True
+
+    def is_authenticated(self):
+        """Return True if the user is authenticated."""
+        return self.authenticated
+
+    def is_anonymous(self):
+        """False, as anonymous users aren't supported."""
+        return False
 
 class Cluepony(db.Model):
 
@@ -80,8 +94,14 @@ def login():
         return render_template("login.html", error=False)
 
     user = load_user(request.form["username"])
+
     if user is None:
-        return render_template("login.html", error=True)
+        #hashpass = bcrypt.hashpw(request.form["password"], bcrypt.genSalt())
+        user = User(username=request.form["username"], email=request.form["email"],password_hash=request.form["password"])
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('index'))
 
     if not user.check_password(request.form["password"]):
         return render_template("login.html", error=True)
@@ -100,16 +120,16 @@ def about_page():
     if request.method == "GET":
          return render_template("about.html", error=False)
 
-@app.route("/gallery/", methods=["GET", "POST"])
-def gallery():
+@app.route("/generator/", methods=["GET", "POST"])
+def generator():
     if request.method == "GET":
-        return render_template("gallery.html", clueponies=Cluepony.query.all())
+         return render_template("generator.html", clueponies=Cluepony.query.all())
 
     if not current_user.is_authenticated:
-        return redirect(url_for('gallery'))
+        return redirect(url_for('generator'))
 
     if not validators.url(request.form["contents"]):
-        return redirect(url_for('gallery'))
+        return redirect(url_for('generator'))
 
     LastRow = Cluepony.query.count()
     url = su.encode_url(LastRow)
@@ -117,7 +137,7 @@ def gallery():
     db.session.add(cluepony)
     db.session.commit()
 
-    return redirect(url_for('gallery'))
+    return redirect(url_for('generator'))
 
 
 @app.route('/<short_url>')
@@ -131,14 +151,6 @@ def decode(short_url):
         print (e)
 
     return redirect(redirect_url)
-
-
-@app.route("/generate/", methods=["GET", "POST"])
-def generate():
-    url = su.encode_url(1234)
-    uid = 'pbq8b'
-    Destination_URL = Cluepony.query.filter_by(encoded_url=str(uid)).first()
-    return ("http://www.cluepony.com/" + str(Destination_URL.content))
 
 @app.route("/logout/")
 @login_required
