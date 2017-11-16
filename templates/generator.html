@@ -38,23 +38,36 @@
         <div class="menu-logo">
             <div class="navbar-brand">
                 <span class="navbar-logo">
-                    <a href="index.html">
+                    <a href="/">
                         <img src="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Cluepony" title="" media-simple="true" style="height: 3.8rem;">
                     </a>
                 </span>
-                <span class="navbar-caption-wrap"><a class="navbar-caption text-primary display-5" href="https://mobirise.com">
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-primary display-5" href="/">
                         Clue Pony</a></span>
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item">
-                    <a class="nav-link link text-black display-4" href="index.html">Home</a>
-                </li><li class="nav-item"><a class="nav-link link text-black display-4" href="about.html">About Us</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="index.html#content4-12">
+                    <a class="nav-link link text-black display-4" href="/">Home</a>
+                </li><li class="nav-item"><a class="nav-link link text-black display-4" href="/about">About Us</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="/index">
                         Services
                     </a></li>
-                <li class="nav-item"><a class="nav-link link text-black display-4" href="index.html#content5-g">
-                        Pricing</a></li></ul>
-            <div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-primary display-4" href="#top"><font face="MobiriseIcons"><br></font>Login/Signup &nbsp; &nbsp;</a></div>
+                <li class="nav-item"><a class="nav-link link text-black display-4" href="/">
+                        Pricing</a>
+                </li>
+                <li class="nav-item"><a class="nav-link link text-black display-4" href=".">
+                        Generator</a>
+                </li>
+            </ul>
+
+                 <div class="navbar-buttons mbr-section-btn">
+                    {% if current_user.is_authenticated %}
+                        <a class="btn btn-sm btn-primary display-4" href="{{ url_for('logout') }}"><font face="MobiriseIcons"><br></font>Logout &nbsp; &nbsp;</a>
+                    {% else %}
+                        <a class="btn btn-sm btn-primary display-4" href="{{ url_for('login') }}"><font face="MobiriseIcons"><br></font>Login/Signup &nbsp; &nbsp;</a>
+                    {% endif %}
+
+                </div>
         </div>
     </nav>
 </section>
@@ -71,17 +84,17 @@
         <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
             Clue Pony Generator</h1>
         <p class="mbr-text pb-3 mbr-fonts-style display-5">
-            Create your own Clue Pony. &nbsp;Registered Teaching Professional users can create collections of their own and share them with the teaching community.</p>
+            Create your own Clue Pony. &nbsp;Registered Teaching Professional users can create collections and share them.</p>
     </div>
     <div class="col-lg-4 col-md-5">
     <div class="form-container">
-        <div class="media-container-column" data-form-type="formoid">
+        <div class="media-container-column">
             <div data-form-alert="" hidden="" class="align-center">Thanks for creating a new Clue Pony!</div>
 
 
 
 
-            <form class="mbr-form" action="." method="POST" data-form-title="Clue Pony Form"><input type="hidden" data-form-email="true" value="dTwvSaN4RyluIdVZ/8zkZRRNOgR1dYXv6DlaJVFIvsaC+LyRKXJC95FYUoDcBZDDt7Rx+gNIs7YIUa5OczSQQ70Fv/FZlic59vCt5X8TiwyOaXu9BvPkq4lNe7QMS8IO">
+            <form class="mbr-form" action="." method="POST" data-form-title="Clue Pony Form"><input type="hidden">
                 <div data-for="name">
                     <div class="form-group">
                         <input type="text" class="form-control px-3" name="contents" data-form-field="Name" placeholder="Enter a URL to create a new Clue PonyL" required="" id="name-header15-16">
@@ -91,10 +104,6 @@
                     <div class="form-group">
                         <input type="email" class="form-control px-3" name="email" data-form-field="Email" placeholder="Your Email" required="" id="email-header15-16">
                     </div>
-                </div>
-
-                <div class="form-group" data-for="message">
-                    <textarea type="text" class="form-control px-3" name="message" rows="7" placeholder="Please describe the educational resource you are linking to" data-form-field="Message" id="message-header15-16"></textarea>
                 </div>
                 <span class="input-group-btn"><button href="" type="submit" class="btn btn-secondary btn-form display-4">Create my Clue Pony</button></span>
             </form>
@@ -111,10 +120,17 @@
 </section>
 
 
-<section class="mbr-gallery mbr-slider-carousel cid-qANwPqWlep" id="gallery2-17" data-rv-view="376">
+    <section class="mbr-gallery mbr-slider-carousel cid-qANwPqWlep" id="gallery2-17" data-rv-view="1639">
 
+
+
+    <div>
+        <div><!-- Filter --><div class="mbr-gallery-filter container gallery-filter-active"><ul buttons="0">
+            <li class="mbr-gallery-filter-all"><a class="btn btn-md btn-primary-outline active display-4" href="">All</a>
+            </li></ul></div><!-- Gallery -->
+  <div class="mbr-gallery-row">
     {% for cluepony in clueponies %}
-    <div class="mbr-gallery-row">
+
         <div class="mbr-gallery-layout-default">
             <div>
                 <div>
@@ -145,8 +161,10 @@
                 </div>
             </div>
         </div>
+        {% endfor %}
+
     </div>
-    {% endfor %}
+
 
 </section>
 

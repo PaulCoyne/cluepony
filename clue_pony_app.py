@@ -101,12 +101,12 @@ def login():
 
     user = load_user(request.form["username"])
 
-    if user is None:
-        user = User(username=request.form["username"], email=request.form["email"],password_hash=request.form["password"])
-        db.session.add(user)
-        db.session.commit()
+    #if user is None:
+    #    user = User(username=request.form["username"], email=request.form["email"],password_hash=request.form["password"])
+    #    db.session.add(user)
+    #    db.session.commit()
 
-        return redirect(url_for('index'))
+    #    return redirect(url_for('index'))
 
     if not user.check_password(request.form["password"]):
         return render_template("login.html", error=True)
@@ -173,6 +173,7 @@ def logout():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
