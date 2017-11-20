@@ -1,117 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <!-- Site made with Mobirise Website Builder v4.4.1, https://mobirise.com -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v4.4.1, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" type="image/x-icon">
-  <meta name="description" content="Web Site Generator Description">
-  <title>Clue Pony Generator</title>
-  <link rel="stylesheet" href="/assets/web/assets/mobirise-icons/mobirise-icons.css">
-  <link rel="stylesheet" href="/assets/tether/tether.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="/assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="/assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="/assets/theme/css/style.css">
-  <link rel="stylesheet" href="/assets/mobirise-gallery/style.css">
-  <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
+{% extends "layout.html" %}
+{% block content %}
 
 
 
-</head>
-<body>
-<section class="menu cid-qAFUngtB2p" once="menu" id="menu2-14" data-rv-view="371">
 
-    <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </button>
-        <div class="menu-logo">
-            <div class="navbar-brand">
-                <span class="navbar-logo">
-                    <a href="/">
-                        <img src="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Cluepony" title="" media-simple="true" style="height: 3.8rem;">
-                    </a>
-                </span>
-                <span class="navbar-caption-wrap"><a class="navbar-caption text-primary display-5" href="/">
-                        Clue Pony</a></span>
-            </div>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item">
-                    <a class="nav-link link text-black display-4" href="/">Home</a>
-                </li><li class="nav-item"><a class="nav-link link text-black display-4" href="/about">About Us</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="/index">
-                        Services
-                    </a></li>
-                <li class="nav-item"><a class="nav-link link text-black display-4" href="/">
-                        Pricing</a>
-                </li>
-                <li class="nav-item"><a class="nav-link link text-black display-4" href=".">
-                        Generator</a>
-                </li>
-            </ul>
 
-                 <div class="navbar-buttons mbr-section-btn">
-                    {% if current_user.is_authenticated %}
-                        <a class="btn btn-sm btn-primary display-4" href="{{ url_for('logout') }}"><font face="MobiriseIcons"><br></font>Logout &nbsp; &nbsp;</a>
-                    {% else %}
-                        <a class="btn btn-sm btn-primary display-4" href="{{ url_for('login') }}"><font face="MobiriseIcons"><br></font>Login/Signup &nbsp; &nbsp;</a>
-                    {% endif %}
-
-                </div>
-        </div>
-    </nav>
-</section>
 
 <section class="engine"><a href="https://mobirise.co/k">bootstrap templates</a></section><section class="cid-qANtdQePA8 mbr-fullscreen mbr-parallax-background" id="header15-16" data-rv-view="373">
 
-
-
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(7, 59, 76);"></div>
-
-    <div class="container align-right">
-<div class="row">
-    <div class="mbr-white col-lg-8 col-md-7 content-container">
-        <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
-            Clue Pony Generator</h1>
-        <p class="mbr-text pb-3 mbr-fonts-style display-5">
-            Create your own Clue Pony. &nbsp;Registered Teaching Professional users can create collections and share them.</p>
-    </div>
-    <div class="col-lg-4 col-md-5">
-    <div class="form-container">
-        <div class="media-container-column">
-            <div data-form-alert="" hidden="" class="align-center">Thanks for creating a new Clue Pony!</div>
-
-
-
-
-            <form class="mbr-form" action="." method="POST" data-form-title="Clue Pony Form"><input type="hidden">
-                <div data-for="name">
-                    <div class="form-group">
-                        <input type="text" class="form-control px-3" name="contents" data-form-field="Name" placeholder="Enter a URL to create a new Clue PonyL" required="" id="name-header15-16">
+        <div class="container align-right">
+            <div class="row">
+                <div class="mbr-white col-lg-8 col-md-7 content-container">
+                    <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
+                        Clue Pony Generator</h1>
+                    <p class="mbr-text pb-3 mbr-fonts-style display-5">
+                    Create your own Clue Pony. &nbsp;Registered Teaching Professional users can create collections and share them.</p>
+                </div>
+            <div class="col-lg-4 col-md-5">
+            <div class="form-container">
+                <div class="media-container-column">
+                    <div data-form-alert="" hidden="" class="align-center">Thanks for creating a new Clue Pony!</div>
+                        <form class="mbr-form" action="." method="POST" data-form-title="Clue Pony Form"><input type="hidden">
+                            <div data-for="name">
+                                <div class="form-group">
+                                    <input type="text" class="form-control px-3" name="contents" data-form-field="Name" placeholder="Enter a URL to create a new Clue PonyL" required="" id="name-header15-16">
+                                </div>
+                            </div>
+                            <div data-for="email">
+                                <div class="form-group">
+                                    <input type="email" class="form-control px-3" name="email" data-form-field="Email" placeholder="Your Email" required="" id="email-header15-16">
+                                </div>
+                            </div>
+                            <span class="input-group-btn"><button href="" type="submit" class="btn btn-secondary btn-form display-4">Create my Clue Pony</button></span>
+                        </form>
                     </div>
                 </div>
-                <div data-for="email">
-                    <div class="form-group">
-                        <input type="email" class="form-control px-3" name="email" data-form-field="Email" placeholder="Your Email" required="" id="email-header15-16">
-                    </div>
-                </div>
-                <span class="input-group-btn"><button href="" type="submit" class="btn btn-secondary btn-form display-4">Create my Clue Pony</button></span>
-            </form>
+            </div>
         </div>
     </div>
-    </div>
-</div>
-    </div>
+
     <div class="mbr-arrow hidden-sm-down" aria-hidden="true">
         <a href="#next">
             <i class="mbri-down mbr-iconfont"></i>
@@ -120,175 +48,97 @@
 </section>
 
 
-    <section class="mbr-gallery mbr-slider-carousel cid-qANwPqWlep" id="gallery2-17" data-rv-view="1639">
+
+
+<section class="engine"><a href="https://mobirise.co/b">web site creator</a></section><section class="section-table cid-qBl0L2obyp" id="table1-1r" data-rv-view="1758">
 
 
 
-    <div>
-        <div><!-- Filter --><div class="mbr-gallery-filter container gallery-filter-active"><ul buttons="0">
-            <li class="mbr-gallery-filter-all"><a class="btn btn-md btn-primary-outline active display-4" href="">All</a>
-            </li></ul></div><!-- Gallery -->
-  <div class="mbr-gallery-row">
-    {% for cluepony in clueponies %}
-
-        <div class="mbr-gallery-layout-default">
-            <div>
-                <div>
-                    <div class="mbr-gallery-item mbr-gallery-item--p2" data-video-url="false" data-tags="New">
-                        <div href="#lb-gallery2-17" data-slide-to="0" data-toggle="modal">
-                            <img src="/assets/images/gallery01.jpg" alt="">
-                            <span class="icon-focus"></span>
-                                <span class="mbr-gallery-title mbr-fonts-style display-7">
-                                    <small>
-                                        Teaching Resource: {{ cluepony.content }}
-                                        Cluepony address for sharing: <a href="http://cluepony.com/{{ cluepony.encoded_url }}">http://www.cluepony.com/{{ cluepony.encoded_url }}</a>
-                                        Posted:
-                                        {% if cluepony.posted %}
-                                            {{ cluepony.posted.strftime("%A, %d %B %Y at %H:%M") }}
-                                        {% else %}
-                                            at an unknown time
-                                        {% endif %}
-                                        by
-                                        {% if cluepony.publisher %}
-                                            {{ cluepony.publisher.username }}
-                                        {% else %}
-                                            anonymous
-                                        {% endif %}
-                                    </small>
-                                </span>
-                        </div>
-                    </div>
+  <div class="container container-table">
+      <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
+          Newest Clue Ponies
+      </h2>
+      <h3 class="mbr-section-subtitle mbr-fonts-style align-center pb-5 mbr-light display-5">
+            These are the latest additions to the Clue Pony service. Registered Teachers can publish these resources to their Google Classroom,o365 for Education Teams accounts or Personal Clue Pony collections.
+      </h3>
+      <div class="table-wrapper">
+        <div class="container">
+          <div class="row search">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div class="dataTables_filter">
+                  <label class="searchInfo mbr-fonts-style display-7">Search:</label>
+                  <input class="form-control input-sm" disabled="">
                 </div>
             </div>
+          </div>
         </div>
+
+        <div class="container scroll">
+          <table class="table isSearch" cellspacing="0">
+            <thead>
+              <tr class="table-heads ">
+
+              <th class="head-item mbr-fonts-style display-7">
+                      SHARE</th><th class="head-item mbr-fonts-style display-7">
+                      CLUE PONY</th><th class="head-item mbr-fonts-style display-7">
+                      INFO</th><th class="head-item mbr-fonts-style display-7">
+                      RESOURCE</th><th class="head-item mbr-fonts-style display-7">
+                      PUBLISHED BY</th><th class="head-item mbr-fonts-style display-7">
+                      DATE</th></tr>
+            </thead>
+
+            <tbody>
+                {% for cluepony in clueponies %}
+        <tr>
+            <td class="body-item mbr-fonts-style display-7">
+            {% if current_user.is_authenticated %}
+                <g:sharetoclassroom size=32 url="http://www.cluepony.com/r/{{ cluepony.encoded_url }}"></g:sharetoclassroom>
+            {% else %}
+                <a href="{{ url_for('login') }}"><span class="mbri-login"></span></a>
+            {% endif %}
+            </td>
+            <td class="body-item mbr-fonts-style display-7"><a href="http://www.cluepony.com/r/{{ cluepony.encoded_url }}">http://www.cluepony.com/r/{{ cluepony.encoded_url }}</a></td>
+            <td>
+                <a href="http://www.cluepony.com/resource/view/{{ cluepony.encoded_url }}"><span class="mbri-growing-chart"></span></a>
+            </td>
+            <td class="body-item mbr-fonts-style display-7">{{ cluepony.content }}</td>
+            <td class="body-item mbr-fonts-style display-7">{% if cluepony.publisher %}
+                    {{ cluepony.publisher.username }}
+                {% else %}
+                    anonymous
+                {% endif %}</td>
+            <td class="body-item mbr-fonts-style display-7">{% if cluepony.posted %}
+                    {{ cluepony.posted.strftime("%A, %d %B %Y at %H:%M") }}
+                {% else %}
+                    at an unknown time
+                {% endif %}
+            </td>
+        </tr>
         {% endfor %}
-
-    </div>
-
-
-</section>
-
-<section class="footer3 cid-qANIZVYXHj" id="footer3-19" data-rv-view="415">
-
-    <div class="container">
-        <div class="media-container-row content">
-            <div class="col-md-2 col-sm-4">
-                <div class="mb-3 img-logo">
-                    <a href="http://www.cluepony.com">
-                         <img src="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Mobirise" title="" media-simple="true">
-                    </a>
-                </div>
-                <p class="mbr-fonts-style foot-logo display-7">
-                    Clue Pony
-                </p>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <p class="mb-4 mbr-fonts-style foot-title display-7">
-                    RECENT NEWS
-                </p>
-                <p class="mbr-text mbr-links-column mbr-fonts-style display-7">
-                    <a href="about.html" class="text-black"></a><a href="about.html">About&nbsp;Clue Pony</a><br><a href="page3.html" class="text-black"></a><a href="page3.html">Services&nbsp;for Publishers</a><br>S<a href="Teachers.html">ervices for Teachers</a><br><a href="index.html#content5-g">Pricing</a><br><a href="partners.html">Clue Pony Partners</a><br><a href="terms.html">Terms of Service</a><br><br><br></p>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <p class="mb-4 mbr-fonts-style foot-title display-7">
-                    SUBJECTS</p>
-                <p class="mbr-text mbr-fonts-style mbr-links-column display-7">Maths<br>English<br>Geography<br>History<br>Physical Sciences<br>Social Sciences</p>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <p class="mb-4 mbr-fonts-style foot-title display-7">
-                    SUBSCRIBE
-                </p>
-                <p class="mbr-text form-text mbr-fonts-style display-7">
-                    Get monthly updates and Clue Ponies to free resources.
-                </p>
-                <div class="media-container-column" data-form-type="formoid">
-                    <div data-form-alert="" hidden="" class="align-center">
-                        Thanks for filling out the form!
-                    </div>
-
-                    <form class="form-inline" action="https://mobirise.com/" method="post" data-form-title="Mobirise Form">
-                        <input type="hidden" value="tf9IcA3tPmdYdCaDBCM79iRQtdPja6K8TUrhh8l9cQ6HVUiz4kKLKogEwpXQqp9klZldYcDrdLYAvsrEfFqjcZ8Y9cd9YIma3W9vFu6E9GRD9YJYge0aGP8DkzvhyGnB" data-form-email="true">
-                        <div class="form-group">
-                            <input type="email" class="form-control input-sm input-inverse my-2" name="email" required="" data-form-field="Email" placeholder="Email" id="email-footer3-19">
-                        </div>
-                        <div class="input-group-btn m-2">
-                            <button href="" class="btn btn-primary display-4" type="submit" role="button">Subscribe</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
+    </tbody>
+    </table>
         </div>
-        <div class="footer-lower">
-            <div class="media-container-row">
-                <div class="col-sm-12">
-                    <hr>
-                </div>
+        <div class="container table-info-container">
+          <div class="row info">
+            <div class="col-md-6">
+              <div class="dataTables_info mbr-fonts-style display-7">
+                <span class="infoBefore">Showing</span>
+                <span class="inactive infoRows"></span>
+                <span class="infoAfter">entries</span>
+                <span class="infoFilteredBefore">(filtered from</span>
+                <span class="inactive infoRows"></span>
+                <span class="infoFilteredAfter"> total entries)</span>
+              </div>
             </div>
-            <div class="media-container-row">
-                <div class="col-sm-6 copyright">
-                    <p class="mbr-text mbr-fonts-style display-7">
-                        © Copyright 2017 Clue Pony - All Rights Reserved
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <div class="social-list align-right">
-                        <div class="soc-item">
-                            <a href="https://twitter.com/mobirise" target="_blank">
-                                <span class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://www.facebook.com/pages/Mobirise/1616226671953247" target="_blank">
-                                <span class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://www.youtube.com/c/mobirise" target="_blank">
-                                <span class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://instagram.com/mobirise" target="_blank">
-                                <span class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://plus.google.com/u/0/+Mobirise" target="_blank">
-                                <span class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://www.behance.net/Mobirise" target="_blank">
-                                <span class="socicon-behance socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="col-md-6"></div>
+          </div>
         </div>
+      </div>
     </div>
 </section>
 
 
-  <script src="/assets/web/assets/jquery/jquery.min.js"></script>
-  <script src="/assets/popper/popper.min.js"></script>
-  <script src="/assets/tether/tether.min.js"></script>
-  <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/assets/smooth-scroll/smooth-scroll.js"></script>
-  <script src="/assets/dropdown/js/script.min.js"></script>
-  <script src="/assets/touch-swipe/jquery.touch-swipe.min.js"></script>
-  <script src="/assets/masonry/masonry.pkgd.min.js"></script>
-  <script src="/assets/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="/assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
-  <script src="/assets/jquery-mb-vimeo_player/jquery.mb.vimeo_player.js"></script>
-  <script src="/assets/jarallax/jarallax.min.js"></script>
-  <script src="/assets/theme/js/script.js"></script>
-  <script src="/assets/mobirise-gallery/player.min.js"></script>
-  <script src="/assets/mobirise-gallery/script.js"></script>
-  <script src="/assets/mobirise-slider-video/script.js"></script>
-  <script src="/assets/formoid/formoid.min.js"></script>
 
 
-</body>
-</html>
+{% endblock %}

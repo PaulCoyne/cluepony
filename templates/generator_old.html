@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<section class="engine"><a href="https://mobirise.co/k">bootstrap templates</a></section><section class="cid-qANtdQePA8 mbr-fullscreen mbr-parallax-background" id="header15-16" data-rv-view="373">
+
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(7, 59, 76);"></div>
+        <div class="container align-right">
+            <div class="row">
+                <div class="mbr-white col-lg-8 col-md-7 content-container">
+                    <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
+                        Clue Pony Generator</h1>
+                    <p class="mbr-text pb-3 mbr-fonts-style display-5">
+                    Create your own Clue Pony. &nbsp;Registered Teaching Professional users can create collections and share them.</p>
+                </div>
+            <div class="col-lg-4 col-md-5">
+            <div class="form-container">
+                <div class="media-container-column">
+                    <div data-form-alert="" hidden="" class="align-center">Thanks for creating a new Clue Pony!</div>
+                        <form class="mbr-form" action="." method="POST" data-form-title="Clue Pony Form"><input type="hidden">
+                            <div data-for="name">
+                                <div class="form-group">
+                                    <input type="text" class="form-control px-3" name="contents" data-form-field="Name" placeholder="Enter a URL to create a new Clue PonyL" required="" id="name-header15-16">
+                                </div>
+                            </div>
+                            <div data-for="email">
+                                <div class="form-group">
+                                    <input type="email" class="form-control px-3" name="email" data-form-field="Email" placeholder="Your Email" required="" id="email-header15-16">
+                                </div>
+                            </div>
+                            <span class="input-group-btn"><button href="" type="submit" class="btn btn-secondary btn-form display-4">Create my Clue Pony</button></span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mbr-arrow hidden-sm-down" aria-hidden="true">
+        <a href="#next">
+            <i class="mbri-down mbr-iconfont"></i>
+        </a>
+    </div>
+</section>
+
+
+<section class="mbr-gallery mbr-slider-carousel cid-qANwPqWlep" id="gallery2-17" data-rv-view="1639">
+
+        {% for cluepony in clueponies %}
+        <div class="mbr-gallery-row">
+            <div class="mbr-gallery-layout-default">
+                <div>
+                    <div>
+                        <div class="mbr-gallery-item mbr-gallery-item--p2" data-video-url="false" data-tags="New">
+                            <div href="#lb-gallery2-17" data-slide-to="0" data-toggle="modal">
+                                    <img src="https://www.uttyler.edu/images/users/cetl/teach-resources-icon.png" width="200em" alt="">
+                                    <span class="icon-focus"></span>
+                                    <span class="mbr-gallery-title mbr-fonts-style display-7">
+                                        <small>
+                                                Teaching Resource: {{ cluepony.content }}
+                                                Cluepony address for sharing: <a href="http://cluepony.com/{{ cluepony.encoded_url }}">http://www.cluepony.com/{{ cluepony.encoded_url }}</a>
+                                                Posted:
+                                                {% if cluepony.posted %}
+                                                    {{ cluepony.posted.strftime("%A, %d %B %Y at %H:%M") }}
+                                                {% else %}
+                                                    at an unknown time
+                                                {% endif %}
+                                                by
+                                                {% if cluepony.publisher %}
+                                                    {{ cluepony.publisher.username }}
+                                                {% else %}
+                                                    anonymous
+                                                {% endif %}
+                                        </small>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+</section>
+
+{% endblock %}

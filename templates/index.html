@@ -1,83 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <!-- Site made with Mobirise Website Builder v4.4.1, https://mobirise.com -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v4.4.1, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" type="image/x-icon">
-  <meta name="description" content="">
-  <title>Home</title>
-  <link rel="stylesheet" href="/assets/web/assets/mobirise-icons/mobirise-icons.css">
-  <link rel="stylesheet" href="/assets/tether/tether.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="/assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="/assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="/assets/theme/css/style.css">
-  <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
+{% extends "layout.html" %}
 
-
-
-</head>
-<body>
-<section class="menu cid-qAFUngtB2p" once="menu" id="menu2-0" data-rv-view="241">
-
-
-
-    <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </button>
-        <div class="menu-logo">
-            <div class="navbar-brand">
-                <span class="navbar-logo">
-                    <a href="/">
-                        <img src="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Cluepony" title="" media-simple="true" style="height: 3.8rem;">
-                    </a>
-                </span>
-                <span class="navbar-caption-wrap"><a class="navbar-caption text-primary display-5" href="/">
-                        Clue Pony</a></span>
-            </div>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item">
-                    <a class="nav-link link text-black display-4" href="/">Home</a>
-                </li><li class="nav-item"><a class="nav-link link text-black display-4" href="/about">About Us</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="/index.html#content4-12">
-                        Services
-                    </a></li>
-                <li class="nav-item"><a class="nav-link link text-black display-4" href="/index.html#content5-g">
-                        Pricing</a>
-                </li>
-                <li class="nav-item"><a class="nav-link link text-black display-4" href="/generator">
-                        Generator</a>
-                </li>
-            </ul>
-            <div class="navbar-buttons mbr-section-btn">
-                {% if current_user.is_authenticated %}
-                    <a class="btn btn-sm btn-primary display-4" href="{{ url_for('logout') }}"><font face="MobiriseIcons"><br></font>Logout &nbsp; &nbsp;</a>
-                {% else %}
-                    <a class="btn btn-sm btn-primary display-4" href="{{ url_for('login') }}"><font face="MobiriseIcons"><br></font>Login/Signup &nbsp; &nbsp;</a>
-                {% endif %}
-
-            </div>
-        </div>
-    </nav>
-</section>
-
+{% block content %}
 <section class="engine"><a href="https://mobirise.co/m">bootstrap table</a></section><section class="header1 cid-qAFUYTWSSF mbr-parallax-background" id="header1-3" data-rv-view="243">
-
-
-
-
-
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="mbr-white col-md-10">
@@ -93,13 +17,9 @@
             </div>
         </div>
     </div>
-
 </section>
 
 <section class="mbr-section content4 cid-qAMLCoMKmd" id="content4-12" data-rv-view="246">
-
-
-
     <div class="container">
         <div class="media-container-row">
             <div class="title col-12 col-md-8">
@@ -112,11 +32,6 @@
 </section>
 
 <section class="features2 cid-qAHJOBv0Ed" id="features2-b" data-rv-view="248">
-
-
-
-
-
     <div class="container">
         <div class="media-container-row">
             <div class="card p-3 col-12 col-md-6 col-lg-4">
@@ -258,11 +173,6 @@
 </section>
 
 <section class="cid-qALBVkdCUO" id="pricing-tables2-f" data-rv-view="268">
-
-
-
-
-
     <div class="container">
         <div class="media-container-row">
 
@@ -272,7 +182,7 @@
                         Teaching Professional</h3>
                     <div class="plan-price">
                         <span class="price-value mbr-fonts-style display-5">
-                            $
+                            £
                         </span>
                         <span class="price-figure mbr-fonts-style display-1">0</span>
                         <small class="price-term mbr-fonts-style display-7">for ever<br>
@@ -294,7 +204,7 @@
                     <h3 class="plan-title mbr-fonts-style display-5">Independent</h3>
                     <div class="plan-price">
                         <span class="price-value mbr-fonts-style display-5">
-                            $
+                            £
                         </span>
                         <span class="price-figure mbr-fonts-style display-1">100</span>
                         <small class="price-term mbr-fonts-style display-7">
@@ -319,7 +229,7 @@
                     <h3 class="plan-title mbr-fonts-style display-5">Premium</h3>
                     <div class="plan-price">
                         <span class="price-value mbr-fonts-style display-5">
-                            $
+                            £
                         </span>
                         <span class="price-figure mbr-fonts-style display-1">300</span>
                         <small class="price-term mbr-fonts-style display-7">
@@ -334,7 +244,7 @@
                             <li class="list-group-item">350 Front List Clue Ponies per month included</li>
                             <li class="list-group-item">5000 Back List Clue Ponies included</li>
                             <li class="list-group-item">
-                                25% discount on additional Clue Pony bundles</li><li class="list-group-item">Usage Dashboards as Foal + Subject Usage</li><li class="list-group-item">Email and Telephone support</li>
+                                25% discount on additional Clue Pony bundles</li><li class="list-group-item">Usage Dashboards as Independant + Subject Usage</li><li class="list-group-item">Email and Telephone support</li>
                         </ul>
                     </div>
                     <div class="mbr-section-btn text-center py-4 pb-5"><a href="https://mobirise.com" class="btn btn-primary display-4">30 day free trial</a></div>
@@ -346,7 +256,7 @@
                     <h3 class="plan-title mbr-fonts-style display-5">Enterprise</h3>
                     <div class="plan-price">
                         <span class="price-value mbr-fonts-style display-5">
-                            $
+                            £
                         </span>
                         <span class="price-figure mbr-fonts-style display-1">600</span>
                         <small class="price-term mbr-fonts-style display-7">
@@ -362,7 +272,7 @@
                             <li class="list-group-item">10000 Back List Clue Ponies included</li>
                             <li class="list-group-item">
                                 33% discount on additional Clue Pony bundles</li>
-                            <li class="list-group-item">Usage Dashboards as Pony + Sector Wide</li><li class="list-group-item">Link processing API</li><li class="list-group-item">Dedicated Account Manager</li><li class="list-group-item">Email and Telephone support</li>
+                            <li class="list-group-item">Usage Dashboards as Premium + Sector Wide</li><li class="list-group-item">Link processing API</li><li class="list-group-item">Dedicated Account Manager</li><li class="list-group-item">Email and Telephone support</li>
                         </ul>
                     </div>
                     <div class="mbr-section-btn text-center py-4 pb-5"><a href="https://mobirise.com" class="btn btn-primary display-4">30 day free trial</a></div>
@@ -374,9 +284,6 @@
 </section>
 
 <section class="mbr-section content4 cid-qANKGwtZJu" id="content4-1e" data-rv-view="271">
-
-
-
     <div class="container">
         <div class="media-container-row">
             <div class="title col-12 col-md-8">
@@ -391,10 +298,6 @@
 </section>
 
 <section class="cid-qANKzUIARM" id="pricing-tables3-1d" data-rv-view="273">
-
-
-
-
     <div class="container">
         <div class="media-container-row">
             <div class=" col-12 col-lg-4 col-md-6 my-2">
@@ -402,7 +305,7 @@
                     <div class="plan-header">
                         <div class="plan-price">
                             <span class="price-value mbr-fonts-style display-5">
-                                $
+                                £
                             </span>
                             <span class="price-figure mbr-fonts-style display-1">
                                 50</span>
@@ -425,7 +328,7 @@
                     <div class="plan-header">
                         <div class="plan-price">
                             <span class="price-value mbr-fonts-style display-5">
-                                $
+                                £
                             </span>
                             <span class="price-figure mbr-fonts-style display-1">
                                 100</span>
@@ -449,7 +352,7 @@
                     <div class="plan-header">
                         <div class="plan-price">
                             <span class="price-value mbr-fonts-style display-5">
-                                $
+                                £
                             </span>
                             <span class="price-figure mbr-fonts-style display-1">
                                 500</span>
@@ -470,126 +373,4 @@
         </div>
     </div>
 </section>
-
-<section class="footer3 cid-qAFVJfMkjS" id="footer3-7" data-rv-view="276">
-
-
-
-
-
-    <div class="container">
-        <div class="media-container-row content">
-            <div class="col-md-2 col-sm-4">
-                <div class="mb-3 img-logo">
-                    <a href="http://www.cluepony.com">
-                         <img src="/assets/images/thumbnail-clean-clue-pony-logo-301x267.jpg" alt="Clue Pony" title="" media-simple="true">
-                    </a>
-                </div>
-                <p class="mbr-fonts-style foot-logo display-7">
-                    Clue Pony
-                </p>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <p class="mb-4 mbr-fonts-style foot-title display-7">
-                    RECENT NEWS
-                </p>
-                <p class="mbr-text mbr-links-column mbr-fonts-style display-7">
-                    <a href="about.html" class="text-black"></a><a href="about.html">About&nbsp;Clue Pony</a><br><a href="page3.html" class="text-black"></a><a href="page3.html">Services&nbsp;for Publishers</a><br>S<a href="Teachers.html">ervices for Teachers</a><br><a href="index.html#content5-g">Pricing</a><br><a href="partners.html">Clue Pony Partners</a><br><a href="terms.html">Terms of Service</a><br><br><br></p>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <p class="mb-4 mbr-fonts-style foot-title display-7">
-                    SUBJECTS</p>
-                <p class="mbr-text mbr-fonts-style mbr-links-column display-7">Maths<br>English<br>Geography<br>History<br>Physical Sciences<br>Social Sciences</p>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <p class="mb-4 mbr-fonts-style foot-title display-7">
-                    SUBSCRIBE
-                </p>
-                <p class="mbr-text form-text mbr-fonts-style display-7">
-                    Get monthly updates and Clue Ponies to free resources.
-                </p>
-                <div class="media-container-column" data-form-type="formoid">
-                    <div data-form-alert="" hidden="" class="align-center">
-                        Thanks for filling out the form!
-                    </div>
-
-                    <form class="form-inline" action="https://mobirise.com/" method="post" data-form-title="Mobirise Form">
-                        <input type="hidden" value="Ihow/eXwP5pPKhl0AFDMedDDZOuqwWJWyGs05OZiG/t+IoAjr3jrop8jR50+mc2b37t3udg+ssK8aCWNNsFzz1ZM4XK473HwHF7nqTJFn/j0CNOZgtRaFbKvvILJjQgn" data-form-email="true">
-                        <div class="form-group">
-                            <input type="email" class="form-control input-sm input-inverse my-2" name="email" required="" data-form-field="Email" placeholder="Email" id="email-footer3-7">
-                        </div>
-                        <div class="input-group-btn m-2">
-                            <button href="" class="btn btn-primary display-4" type="submit" role="button">Subscribe</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-        <div class="footer-lower">
-            <div class="media-container-row">
-                <div class="col-sm-12">
-                    <hr>
-                </div>
-            </div>
-            <div class="media-container-row">
-                <div class="col-sm-6 copyright">
-                    <p class="mbr-text mbr-fonts-style display-7">
-                        © Copyright 2017 Clue Pony - All Rights Reserved
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <div class="social-list align-right">
-                        <div class="soc-item">
-                            <a href="https://twitter.com/mobirise" target="_blank">
-                                <span class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://www.facebook.com/pages/Mobirise/1616226671953247" target="_blank">
-                                <span class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://www.youtube.com/c/mobirise" target="_blank">
-                                <span class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://instagram.com/mobirise" target="_blank">
-                                <span class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://plus.google.com/u/0/+Mobirise" target="_blank">
-                                <span class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://www.behance.net/Mobirise" target="_blank">
-                                <span class="socicon-behance socicon mbr-iconfont mbr-iconfont-social" media-simple="true"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-  <script src="/assets/web/assets/jquery/jquery.min.js"></script>
-  <script src="/assets/popper/popper.min.js"></script>
-  <script src="/assets/tether/tether.min.js"></script>
-  <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/assets/smooth-scroll/smooth-scroll.js"></script>
-  <script src="/assets/touch-swipe/jquery.touch-swipe.min.js"></script>
-  <script src="/assets/jarallax/jarallax.min.js"></script>
-  <script src="/assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
-  <script src="/assets/dropdown/js/script.min.js"></script>
-  <script src="/assets/theme/js/script.js"></script>
-  <script src="/assets/formoid/formoid.min.js"></script>
-
-
-</body>
-</html>
+{% endblock %}
