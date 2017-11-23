@@ -19,6 +19,10 @@ from werkzeug.security import check_password_hash
 from flask_shorturl import ShortUrl
 from requests_oauthlib import OAuth2Session
 from requests.exceptions import HTTPError
+from flask_wtf import Form
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import Email, DataRequired
+from flask.ext.bcrypt import Bcrypt
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
@@ -52,10 +56,6 @@ app.secret_key = "fugee the wondercat"
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-login_manager = LoginManager(app)
-login_manager.login_view = "login"
-login_manager.session_protection = "strong"
-
 class User(UserMixin, db.Model):
 
     __tablename__ = "users"
@@ -69,12 +69,26 @@ class User(UserMixin, db.Model):
     active = db.Column(db.Boolean, default=False)
     tokens = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.now)
+    registered_on = db.Column(db.DateTime, nullable=False)
+    admin = db.Column(db.Boolean, nullable=False, default=False)
+    confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    confirmed_on = db.Column(db.DateTime, nullable=True)
+
+    def __init__(self, email, username, password, confirmed,
+                 paid=False, admin=False, confirmed_on=None):
+        self.email = email
+        self.username = username
+        self.password_hash = password
+        self.registered_on = datetime.now()
+        self.admin = admin
+        self.confirmed = confirmed
+        self.confirmed_on = confirmed_on
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
     def get_id(self):
-        return self.username
+        return str(self.email)
 
     def is_active(self):
         """True, as all users are active."""
@@ -86,6 +100,7 @@ class User(UserMixin, db.Model):
 
     def is_authenticated(self):
         return True
+
 
 class Cluepony(db.Model):
 
@@ -115,31 +130,19 @@ class Auth:
     USER_INFO = 'https://www.googleapis.com/userinfo/v2/me'
     SCOPE = ['profile', 'email']
 
-
-class Config:
-    APP_NAME = "Test Google Login"
-    SECRET_KEY = os.environ.get("SECRET_KEY") or "somethingsecret"
-
-
-class DevConfig(Config):
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "test.db")
-
-
-class ProdConfig(Config):
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
-
-
-config = {
-    "dev": DevConfig,
-    "prod": ProdConfig,
-    "default": DevConfig
-}
+class SignupForm(Form):
+    email = StringField('email',
+                validators=[DataRequired(),Email()])
+    username = StringField('username',
+                validators=[DataRequired()])
+    password = PasswordField(
+                'password_hash',
+                validators=[DataRequired()])
+    submit = SubmitField("Sign In")
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.filter_by(username=user_id).first()
+def load_user(email):
+    return User.query.filter_by(email = email).first()
 
 
 def get_google_auth(state=None, token=None):
@@ -167,44 +170,55 @@ def index():
     if request.method == "GET":
         return render_template("index.html")
 
-@app.route('/loginold', methods=["GET", "POST"])
-def loginold():
-    if request.method == "GET":
-        return render_template("login.html")
-    if request.method == "POST":
-        user = load_user(request.form["username"])
-        if not user.check_password(request.form["password"]):
-            return render_template("login.html", error=True)
-        login_user(user)
-        return redirect(url_for('index'))
-        #return render_template("login.html", error=False)
-    if current_user.is_authenticated:
-        return redirect(url_for('generator'))
-    google = get_google_auth()
-    auth_url, state = google.authorization_url(
-        Auth.AUTH_URI, access_type='offline')
-    session['oauth_state'] = state
-    return render_template('login.html', auth_url=auth_url)
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = SignupForm()
+    if request.method == 'GET':
+        return render_template('signup.html', form = form)
+    elif request.method == 'POST':
+        if form.validate_on_submit():
+            if User.query.filter_by(email=form.email.data).first():
+                return render_template("signup.html", form=form, error=True)
+            else:
+                confirmed = False
+                newuser = User(form.email.data, form.username.data, form.password.data, confirmed)
+                db.session.add(newuser)
+                db.session.commit()
 
-@app.route("/login/", methods=["GET", "POST"])
+                login_user(newuser)
+                return redirect(url_for('index')) #should change this to a welcome page
+
+        else:
+            return render_template("signup.html", form=form, error=True)
+
+
+@app.route('/login', methods=['GET','POST'])
 def login():
-    if request.method == "GET":
-        #return render_template("login.html", error=False)
+    form = SignupForm()
+    if request.method == 'GET':
         google = get_google_auth()
         auth_url, state = google.authorization_url(
         Auth.AUTH_URI, access_type='offline')
         session['oauth_state'] = state
-        return render_template('login.html', auth_url=auth_url)
+        #return render_template('login.html', auth_url=auth_url)
+        return render_template('login.html', form=form, auth_url=auth_url)
 
-    user = load_user(request.form["username"])
-    if user is None:
-        return render_template("login.html", error=True)
+    elif request.method == 'POST':
+        if form.validate_on_submit():
+            user=User.query.filter_by(email=form.email.data).first()
+            if user:
+                if user.password_hash == form.password.data:
+                    login_user(user)
+                    return redirect(url_for('index'))
+                else:
+                    return render_template("login.html", form=form, error=True)
+            else:
+                return render_template("login.html",form=form, error=True)
+    else:
+            return render_template("login.html", form=form, error=True)
 
-    if not user.check_password(request.form["password"]):
-        return render_template("login.html", error=True)
 
-    login_user(user)
-    return redirect(url_for('index'))
+
 
 @app.route("/publishers/", methods=["GET", "POST"])
 def publishers_page():
@@ -247,13 +261,18 @@ def generator():
 
 @app.route('/resource/view/<short_url>')
 def resource(short_url):
+    if request.method == "GET":
+        return render_template('resource.html', cluepony_ID= short_url, error=False)
+
+@app.route('/profile/view/<short_url>')
+def profile(short_url):
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
     google = get_google_auth()
     auth_url, state = google.authorization_url(
         Auth.AUTH_URI, access_type='offline')
     session['oauth_state'] = state
-    return render_template('resource.html', auth_url=auth_url, cluepony_ID= short_url, error=False)
+    return render_template('profile.html', auth_url=auth_url, cluepony_ID= short_url, error=False)
 
 @app.route('/r/<short_url>')
 def decode(short_url):
@@ -271,11 +290,6 @@ def decode(short_url):
         print (e)
 
     return redirect(redirect_url)
-
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template('profile.html')
 
 @app.route('/gCallback')
 def callback():
@@ -318,7 +332,8 @@ def callback():
             return redirect(url_for('about_page'))
         return 'Could not fetch your information.'
 
-@app.route("/logout/")
+@app.route("/logout")
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
@@ -326,7 +341,6 @@ def logout():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
