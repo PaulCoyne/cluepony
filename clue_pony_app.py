@@ -11,7 +11,7 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 import validators
 import json
 from datetime import datetime
-from flask import Flask, redirect, render_template, session, request, url_for
+from flask import Flask, flash, redirect, render_template, session, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import login_user, LoginManager, UserMixin, logout_user, login_required, current_user
@@ -22,22 +22,59 @@ from requests.exceptions import HTTPError
 from flask_wtf import Form
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import Email, DataRequired
-from flask.ext.bcrypt import Bcrypt
+from itsdangerous import URLSafeTimedSerializer
+from flask_mail import Mail, Message
+import uuid
+from flask_oauthlib.client import OAuth
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-app = Flask(__name__)
-app.config["DEBUG"] = True
-su = ShortUrl(app)
 
+class Auth:
+    CLIENT_ID = ('621466473238-khkicq7nbdruk9vuga0oj58fbh38pueh.apps.googleusercontent.com')
+    CLIENT_SECRET = 'h2xppeVKpR1oxmf5WGIRPyUF'
+    REDIRECT_URI = 'http://www.cluepony.com/gCallback'
+    AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
+    TOKEN_URI = 'https://accounts.google.com/o/oauth2/token'
+    USER_INFO = 'https://www.googleapis.com/userinfo/v2/me'
+    SCOPE = ['profile', 'email']
+
+
+class Config:
+    APP_NAME = "Test Google Login"
+    SECRET_KEY = os.environ.get("SECRET_KEY") or "somethingsecret"
+
+
+class DevConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "test.db")
+
+
+class ProdConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
+
+
+config = {
+    "dev": DevConfig,
+    "prod": ProdConfig,
+    "default": DevConfig
+}
+
+app = Flask(__name__)
+
+app.config["DEBUG"] = True
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="cluepony",
     password="Ragpark69",
     hostname="cluepony.mysql.pythonanywhere-services.com",
     databasename="cluepony$ClueponyDB",
 )
+
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SECURITY_PASSWORD_SALT"] = 'fugee the wondercat'
+app.config['SECRET_KEY']= "fugee the wondercat"
 app.config['SECURITY_POST_LOGIN'] = '/profile'
 app.config['SOCIAL_FACEBOOK'] = {
     'consumer_key': '179641645948417',
@@ -49,12 +86,48 @@ app.config['SOCIAL_GOOGLE'] = {
     'consumer_secret': 'VGUSnZkIZsg19uY88UAdKL76'
 }
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
-app.secret_key = "fugee the wondercat"
+app.config.update(
+    #EMAIL SETTINGS
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USE_SSL=True,
+    MAIL_USERNAME = 'cluepony@gmail.com',
+    MAIL_PASSWORD = 'Ragpark69!'
+)
+DEBUG = False
+BCRYPT_LOG_ROUNDS = 13
+WTF_CSRF_ENABLED = True
+DEBUG_TB_ENABLED = False
+DEBUG_TB_INTERCEPT_REDIRECTS = False
+# mail accounts
+app.config['MAIL_DEFAULT_SENDER'] = 'info@cluepony.com'
+
+su = ShortUrl(app)
+db = SQLAlchemy(app)
+oauth = OAuth(app)
+migrate = Migrate(app, db)
+mail = Mail()
+mail.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = "login"
+login_manager.session_protection = "strong"
+
+
+# Put your consumer key and consumer secret into a config file
+# and don't check it into github!!
+microsoft = oauth.remote_app(
+	'microsoft',
+	consumer_key='35683781-6ce7-4334-b929-fca52b73a6d4',
+	consumer_secret='wlOKHL51^}~ikrokMNZ668{',
+	request_token_params={'scope': 'offline_access User.Read'},
+	base_url='https://graph.microsoft.com/v1.0/',
+	request_token_url=None,
+	access_token_method='POST',
+	access_token_url='https://login.microsoftonline.com/common/oauth2/v2.0/token',
+	authorize_url='https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
+)
 
 class User(UserMixin, db.Model):
 
@@ -121,15 +194,6 @@ class CluePonyEvent(db.Model):
     event_date = db.Column(db.DateTime, default=datetime.now)
     event_id = db.Column(db.Integer)
 
-class Auth:
-    CLIENT_ID = ('621466473238-khkicq7nbdruk9vuga0oj58fbh38pueh.apps.googleusercontent.com')
-    CLIENT_SECRET = 'h2xppeVKpR1oxmf5WGIRPyUF'
-    REDIRECT_URI = 'http://www.cluepony.com/gCallback'
-    AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
-    TOKEN_URI = 'https://accounts.google.com/o/oauth2/token'
-    USER_INFO = 'https://www.googleapis.com/userinfo/v2/me'
-    SCOPE = ['profile', 'email']
-
 class SignupForm(Form):
     email = StringField('email',
                 validators=[DataRequired(),Email()])
@@ -140,10 +204,25 @@ class SignupForm(Form):
                 validators=[DataRequired()])
     submit = SubmitField("Sign In")
 
+class LoginForm(Form):
+    email = StringField('email',
+                validators=[DataRequired(),Email()])
+    password = PasswordField(
+                'password_hash')
+    submit = SubmitField("Log In")
+
 @login_manager.user_loader
 def load_user(email):
     return User.query.filter_by(email = email).first()
 
+def send_email(to, subject, template):
+    msg = Message(
+        subject,
+        recipients=[to],
+        html=template,
+        sender=app.config['MAIL_DEFAULT_SENDER']
+    )
+    mail.send(msg)
 
 def get_google_auth(state=None, token=None):
     if token:
@@ -159,6 +238,92 @@ def get_google_auth(state=None, token=None):
         scope=Auth.SCOPE)
     return oauth
 
+def generate_confirmation_token(email):
+    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    return serializer.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
+
+
+def confirm_token(token, expiration=3600):
+    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    try:
+        email = serializer.loads(
+            token,
+            salt=app.config['SECURITY_PASSWORD_SALT'],
+            max_age=expiration
+        )
+    except:
+        return False
+    return email
+
+@app.route('/azure')
+def azureindex():
+	return render_template('azure_hello.html')
+
+@app.route('/azurelogin', methods = ['POST', 'GET'])
+def loginazure():
+	if 'microsoft_token' in session:
+		return redirect(url_for('azureme'))
+
+	# Generate the guid to only accept initiated logins
+	guid = uuid.uuid4()
+	session['state'] = guid
+
+	return microsoft.authorize(callback=url_for('authorized', _external=True), state=guid)
+
+@app.route('/logoutazure', methods = ['POST', 'GET'])
+def logoutazure():
+	session.pop('microsoft_token', None)
+	session.pop('state', None)
+	return redirect(url_for('index'))
+
+@app.route('/login/authorized')
+def authorized():
+	response = microsoft.authorized_response()
+
+	if response is None:
+		return "Access Denied: Reason=%s\nError=%s" % (
+			response.get('error'),
+			request.get('error_description')
+		)
+
+	# Check response for state
+	print("Response: " + str(response))
+	if str(session['state']) != str(request.args['state']):
+		raise Exception('State has been messed with, end authentication')
+
+	# Okay to store this in a local variable, encrypt if it's going to client
+	# machine or database. Treat as a password.
+	session['microsoft_token'] = (response['access_token'], '')
+
+	return redirect(url_for('me'))
+
+@app.route('/azureme')
+def azureme():
+	me = microsoft.get('me')
+	return render_template('azure_me.html', me=str(me.data))
+
+
+@microsoft.tokengetter
+def get_microsoft_oauth_token():
+	return session.get('microsoft_token')
+
+@app.route('/confirm/<token>')
+@login_required
+def confirm_email(token):
+    try:
+        email = confirm_token(token)
+    except:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+    user = User.query.filter_by(email=email).first_or_404()
+    if user.confirmed:
+        flash('Account already confirmed. Please login.', 'success')
+    else:
+        user.confirmed = True
+        user.confirmed_on = datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        flash('You have confirmed your account. Thanks!', 'success')
+    return redirect(url_for('index'))
 
 @app.route("/", methods=["GET"])
 def home():
@@ -174,7 +339,11 @@ def index():
 def signup():
     form = SignupForm()
     if request.method == 'GET':
-        return render_template('signup.html', form = form)
+        google = get_google_auth()
+        auth_url, state = google.authorization_url(
+        Auth.AUTH_URI, access_type='offline')
+        session['oauth_state'] = state
+        return render_template('signup.html', form = form, auth_url=auth_url)
     elif request.method == 'POST':
         if form.validate_on_submit():
             if User.query.filter_by(email=form.email.data).first():
@@ -185,7 +354,15 @@ def signup():
                 db.session.add(newuser)
                 db.session.commit()
 
+
+                token = generate_confirmation_token(newuser.email)
+                confirm_url = url_for('confirm_email', token=token, _external=True)
+                html = render_template('activate.html', confirm_url=confirm_url)
+                subject = "Please confirm your email"
+                send_email(newuser.email, subject, html)
+
                 login_user(newuser)
+                flash('A confirmation email has been sent via email.', 'success')
                 return redirect(url_for('index')) #should change this to a welcome page
 
         else:
@@ -194,13 +371,14 @@ def signup():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    form = SignupForm()
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
     if request.method == 'GET':
         google = get_google_auth()
         auth_url, state = google.authorization_url(
         Auth.AUTH_URI, access_type='offline')
         session['oauth_state'] = state
-        #return render_template('login.html', auth_url=auth_url)
         return render_template('login.html', form=form, auth_url=auth_url)
 
     elif request.method == 'POST':
@@ -213,12 +391,9 @@ def login():
                 else:
                     return render_template("login.html", form=form, error=True)
             else:
-                return render_template("login.html",form=form, error=True)
-    else:
+                return render_template("login.html", form=form, error=True)
+        else:
             return render_template("login.html", form=form, error=True)
-
-
-
 
 @app.route("/publishers/", methods=["GET", "POST"])
 def publishers_page():
@@ -249,7 +424,8 @@ def generator():
          return render_template("generator.html", clueponies = ListofCluePonies, NewCluePonies = CluePonyPosts)
 
     if not validators.url(request.form["contents"]):
-        return redirect(url_for('generator'))
+        #return redirect(url_for('generator'))
+        return render_template("generator.html", error=True)
 
     LastRow = Cluepony.query.count()
     url = su.encode_url(LastRow)
@@ -320,7 +496,7 @@ def callback():
             email = user_data['email']
             user = User.query.filter_by(email=email).first()
             if user is None:
-                user = User()
+                user = User(user_data['email'],user_data['name'],"password", True)
                 user.email = email
             user.name = user_data['name']
             print(token)
@@ -329,7 +505,7 @@ def callback():
             db.session.add(user)
             db.session.commit()
             login_user(user)
-            return redirect(url_for('about_page'))
+            return redirect(url_for('index'))
         return 'Could not fetch your information.'
 
 @app.route("/logout")

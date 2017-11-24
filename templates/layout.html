@@ -16,7 +16,7 @@
         <script>
           window.fbAsyncInit = function() {
             FB.init({
-              appId      : '{179641645948417}',
+              appId      : '{1405057936286821}',
               cookie     : true,
               xfbml      : true,
               version    : '{latest-api-version}'
@@ -34,6 +34,8 @@
              fjs.parentNode.insertBefore(js, fjs);
            }(document, 'script', 'facebook-jssdk'));
         </script>
+
+
 
       <!-- Site made with Mobirise Website Builder v4.4.1, https://mobirise.com -->
       <meta charset="UTF-8">
@@ -172,8 +174,10 @@
                     </ul>
                     <div class="navbar-buttons mbr-section-btn">
                         {% if current_user.is_authenticated %}
+                            HELLO  {{current_user.email}}
                             <a class="btn btn-sm btn-primary display-4" href="{{ url_for('logout') }}"><font face="MobiriseIcons"><br></font>Logout &nbsp; &nbsp;</a>
                         {% else %}
+
                             <a class="btn btn-sm btn-primary display-4" href="{{ url_for('login') }}"><font face="MobiriseIcons"><br></font>Current Members &nbsp; &nbsp;</a>
                             <a class="btn btn-sm btn-primary display-4" href="{{ url_for('signup') }}"><font face="MobiriseIcons"><br></font>Signup &nbsp; &nbsp;</a>
                         {% endif %}
