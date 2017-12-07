@@ -1,8 +1,7 @@
-{% extends "layout.html" %}
-
+{% extends "dl_layout.html" %}
 
 {% block content %}
-
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <section class="engine"><a href="https://mobirise.co/m">bootstrap table</a></section>
 <section class="header1 cid-qAFUYTWSSF mbr-parallax-background" data-bg-video="https://www.youtube.com/watch?v=dk9uNWPP7EA&list=PL7cdQfbJcOxP_Ii2ifE-8NXj_qP1Mzb7a" id="header6-t" data-rv-view="243">
 
@@ -14,8 +13,8 @@
         <div class="row justify-content-md-center">
             <div class="mbr-white col-md-10">
                 <h1 class="mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-1">
-                    Hello</h1>
-                <p class="mbr-text align-center pb-3 mbr-fonts-style display-5">Create your free Teaching Professional account.</p>
+                    Welcome back</h1>
+                <p class="mbr-text align-center pb-3 mbr-fonts-style display-5">Login to your Teaching Professional account</p>
             </div>
         </div>
     </div>
@@ -26,8 +25,8 @@
         </a>
     </div>
 </section>
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
-</section>
 
 <div class="container">
     <div class="omb_login">
@@ -35,17 +34,10 @@
 		<div class="row omb_row-sm-offset-3 omb_socialButtons">
 
         	<div>
-		        <a href="{{auth_url}}" class="btn btn-lg btn-block omb_btn-google">
-			        <i class="fa fa-google-plus visible-m"></i>
-			        <span class="hidden-xs"> Google Classroom</span>
-		        </a>
-	        </div>
+		        <img src="/assets/images/classroomLogo.png"><a href="{{auth_url}}" class="btn btn-lg btn-block omb_btn-google">
 
-	        <div>
-		        <a href="#" class="btn btn-lg btn-block omb_btn-windows">
-			        <i class="fa fa-windows visible-m"></i>
-			        <span class="hidden-xs"> Office 365 for Education</span>
-		        </a>
+			        <span class="hidden-xs"> Google Classroom</span>
+		        </a></img>
 	        </div>
 		</div>
 
@@ -54,42 +46,40 @@
 				<hr class="omb_hrOr">
 			</div>
 		</div>
-
 	</div>
     <div class="container">
         <div class="media-container-column title col-12 col-lg-8 offset-lg-2">
             <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">
-                Register
+                Login
             </h2>
             <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
-                Add Clue Ponies to personalised collections, share with colleagues, post to Classrooms .
+                Add Hooder Share links to personalised collections, share with colleagues, post to Classrooms .
             </h3>
 
-            <div data-form-alert="" hidden="">Thank you for registering with Clue Pony.</div>
+
              <div class="account-wall">
                 <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                     alt="">
                 {% if error %}
                     <div class="alert alert-warning" role="alert">
-                        User with this password already exists. Invalid email or password.
+                        Incorrect username or password
                     </div>
                 {% endif %}
 
-                <form class="form-signin" method="POST" action="/signup">
+                <form class="form-signin" method="POST" action="/login">
                     {{ form.hidden_tag() }}
 
                     <input type="text" class="form-control" name="email" placeholder="Email" required autofocus>
-                    <input type="text" class="form-control" name="username" placeholder="User Name" required>
                     <input type="password" class="form-control" name="password" placeholder="Password" required>
-                    <input class="btn btn-lg btn-primary btn-block"type="submit" value="Signup"></button>
+                    <input class="btn btn-lg btn-primary btn-block"type="submit" value="login"></button>
                 </form>
 
                 </form>
             </div>
+            <a href="/dl_signup" class="text-center new-account">Don't have a Hodder Share Account? Create one now.</a>
             </div>
         </div>
     </div>
 
+
 {% endblock %}
-
-

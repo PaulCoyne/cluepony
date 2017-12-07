@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "dl_layout.html" %}
 {% block content %}
 
 
@@ -13,18 +13,18 @@
             <div class="row">
                 <div class="mbr-white col-lg-8 col-md-7 content-container">
                     <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
-                        Clue Pony Generator</h1>
+                        Hodder Share Generator</h1>
                     <p class="mbr-text pb-3 mbr-fonts-style display-5">
-                    Create your own Clue Pony. &nbsp;Registered Teaching Professional users can create collections and share them.</p>
+                    Create your own Hodder Share. &nbsp;Registered Teaching Professional users can create collections and share them.</p>
                 </div>
             <div class="col-lg-4 col-md-5">
             <div class="form-container">
                 <div class="media-container-column">
-                    <div data-form-alert="" hidden="" class="align-center">Thanks for creating a new Clue Pony!</div>
-                        <form class="mbr-form" action="." method="POST" data-form-title="Clue Pony Form"><input type="hidden">
+                    <div data-form-alert="" hidden="" class="align-center">Thanks for creating a new Hodder Share!</div>
+                        <form class="mbr-form" action="." method="POST" data-form-title="Hodder Share Form"><input type="hidden">
                             <div data-for="name">
                                 <div class="form-group">
-                                    <input type="text" class="form-control px-3" name="contents" data-form-field="Name" placeholder="Enter a URL to create a new Clue Pony" required="" id="name-header15-16">
+                                    <input type="text" class="form-control px-3" name="contents" data-form-field="Name" placeholder="Enter a URL to create a new Hodder Share" required="" id="name-header15-16">
                                 </div>
                             </div>
                             <div data-for="email">
@@ -33,9 +33,9 @@
                                 </div>
                             </div>
                             {% if current_user.is_authenticated %}
-                                <span class="input-group-btn"><button href="" type="submit" class="btn btn-secondary btn-form display-4">Create my Clue Pony</button></span>
+                                <span class="input-group-btn"><button href="" type="submit" class="btn btn-secondary btn-form display-4">Create my Hodder Share</button></span>
                             {% else %}
-                                <span class="input-group-btn"><a href="{{ url_for('login') }}" type="button" class="btn btn-secondary btn-form display-4">Login to create your Clue Pony</a></span>
+                                <span class="input-group-btn"><a href="{{ url_for('dl_login') }}" type="button" class="btn btn-secondary btn-form display-4">Login to create your Hodder Share</a></span>
 
                             {% endif %}
                         </form>
@@ -64,7 +64,7 @@
           Newest Clue Ponies
       </h2>
       <h3 class="mbr-section-subtitle mbr-fonts-style align-center pb-5 mbr-light display-5">
-            These are the latest additions to the Clue Pony service. Registered Teachers can publish these resources to their Google Classroom,o365 for Education Teams accounts or Personal Clue Pony collections.
+            These are the latest additions to the Hodder Share service. Registered Teachers can publish these resources to their Google Classroom, o365 for Education Teams accounts or Personal Hodder Share collections.
       </h3>
       <div class="table-wrapper">
         <div class="container">
@@ -86,7 +86,7 @@
 
               <th class="head-item mbr-fonts-style display-7">
                       SHARE</th><th class="head-item mbr-fonts-style display-7">
-                      CLUE PONY</th><th class="head-item mbr-fonts-style display-7">
+                      HODDER SHARE</th><th class="head-item mbr-fonts-style display-7">
                       INFO</th><th class="head-item mbr-fonts-style display-7">
                       RESOURCE</th><th class="head-item mbr-fonts-style display-7">
                       PUBLISHED BY</th><th class="head-item mbr-fonts-style display-7">
@@ -100,12 +100,12 @@
             {% if current_user.is_authenticated %}
                 <g:sharetoclassroom size=32 url="http://www.cluepony.com/r/{{ cluepony.encoded_url }}"></g:sharetoclassroom>
             {% else %}
-                <a href="{{ url_for('login') }}"><span class="mbri-login"></span></a>
+                <a href="{{ url_for('dl_login') }}"><span class="mbri-login"></span></a>
             {% endif %}
             </td>
-            <td class="body-item mbr-fonts-style display-7"><a href="http://www.cluepony.com/r/{{ cluepony.encoded_url }}">http://www.cluepony.com/r/{{ cluepony.encoded_url }}</a></td>
+            <td class="body-item mbr-fonts-style display-7"><a href="http://www.cluepony.com/r/dl/{{ cluepony.encoded_url }}">http://www.cluepony.com/r/dl/{{ cluepony.encoded_url }}</a></td>
             <td>
-                <a href="http://www.cluepony.com/resource/view/{{ cluepony.encoded_url }}"><span class="mbri-growing-chart"></span></a>
+                <a href="http://www.cluepony.com/resource/view/dl/{{ cluepony.encoded_url }}"><span class="mbri-growing-chart"></span></a>
             </td>
             <td class="body-item mbr-fonts-style display-7">{{ cluepony.content }}</td>
             <td class="body-item mbr-fonts-style display-7">{% if cluepony.publisher %}

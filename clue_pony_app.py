@@ -136,7 +136,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128))
     password_hash = db.Column(db.String(128))
-    email = db.Column(db.String(100), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=False, nullable=False)
     name = db.Column(db.String(100), nullable=True)
     avatar = db.Column(db.String(200))
     active = db.Column(db.Boolean, default=False)
@@ -186,6 +186,18 @@ class Cluepony(db.Model):
     publisher_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     publisher = db.relationship('User', foreign_keys=publisher_id)
 
+class Collection(db.Model):
+
+    __tablename__ = "clueponyCollection"
+
+    id = db.Column(db.Integer, primary_key=True)
+    collectionName = db.Column(db.String(4096))
+    collectionID = db.Column(db.String(4096))
+    collectionPonies  = db.Column(db.String(4096))
+    posted = db.Column(db.DateTime, default=datetime.now)
+    publisher_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    publisher = db.relationship('User', foreign_keys=publisher_id)
+
 class CluePonyEvent(db.Model):
 
     __tablename__ = "events"
@@ -210,6 +222,13 @@ class LoginForm(Form):
     password = PasswordField(
                 'password_hash')
     submit = SubmitField("Log In")
+
+class newCollectionForm(Form):
+    collectionName = StringField('name',
+                validators=[DataRequired()])
+    collectionDescription = StringField(
+                'description')
+    submit = SubmitField("Create Collection")
 
 @login_manager.user_loader
 def load_user(email):
@@ -325,6 +344,7 @@ def confirm_email(token):
         flash('You have confirmed your account. Thanks!', 'success')
     return redirect(url_for('index'))
 
+#Resolve and show the index/Home page
 @app.route("/", methods=["GET"])
 def home():
     if request.method == "GET":
@@ -335,6 +355,21 @@ def index():
     if request.method == "GET":
         return render_template("index.html")
 
+@app.route("/dl_index", methods=["GET"])
+def dl_index():
+    if request.method == "GET":
+        return render_template("dl_index.html")
+
+@app.route('/profile')
+def profilepage():
+	return render_template('profile.html')
+
+@app.route('/dl_profile')
+def dl_profilepage():
+	return render_template('dl_profile.html')
+
+
+#Presents the Signup page. Validate new registrations by email and by Google and o365
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
@@ -368,18 +403,53 @@ def signup():
         else:
             return render_template("signup.html", form=form, error=True)
 
+#Presents the Signup page. Validate new registrations by email and by Google and o365
+@app.route('/dl_signup', methods=['GET', 'POST'])
+def dl_signup():
+    form = SignupForm()
+    if request.method == 'GET':
+        google = get_google_auth()
+        auth_url, state = google.authorization_url(
+        Auth.AUTH_URI, access_type='offline')
+        session['oauth_state'] = state
+        return render_template('dl_signup.html', form = form, auth_url=auth_url)
+    elif request.method == 'POST':
+        if form.validate_on_submit():
+            if User.query.filter_by(email=form.email.data).first():
+                return render_template("dl_signup.html", form=form, error=True)
+            else:
+                confirmed = False
+                newuser = User(form.email.data, form.username.data, form.password.data, confirmed)
+                db.session.add(newuser)
+                db.session.commit()
 
+
+                token = generate_confirmation_token(newuser.email)
+                confirm_url = url_for('confirm_email', token=token, _external=True)
+                html = render_template('activate.html', confirm_url=confirm_url)
+                subject = "Please confirm your email"
+                send_email(newuser.email, subject, html)
+
+                login_user(newuser)
+                flash('A confirmation email has been sent via email.', 'success')
+                return redirect(url_for('index')) #should change this to a welcome page
+
+        else:
+            return render_template("dl_signup.html", form=form, error=True)
+
+#The login page. Validate login attempts by email and by Google and 0365
 @app.route('/login', methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
     if request.method == 'GET':
+        o365_url = url_for('loginazure')
         google = get_google_auth()
         auth_url, state = google.authorization_url(
         Auth.AUTH_URI, access_type='offline')
         session['oauth_state'] = state
-        return render_template('login.html', form=form, auth_url=auth_url)
+        return render_template('login.html', form=form, auth_url=auth_url, o365_url = o365_url)
 
     elif request.method == 'POST':
         if form.validate_on_submit():
@@ -395,25 +465,122 @@ def login():
         else:
             return render_template("login.html", form=form, error=True)
 
+#The login page. Validate login attempts by email and by Google and 0365
+@app.route('/dl_login', methods=['GET','POST'])
+def dl_login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if request.method == 'GET':
+        o365_url = url_for('loginazure')
+        google = get_google_auth()
+        auth_url, state = google.authorization_url(
+        Auth.AUTH_URI, access_type='offline')
+        session['oauth_state'] = state
+        return render_template('dl_login.html', form=form, auth_url=auth_url, o365_url = o365_url)
+
+    elif request.method == 'POST':
+        if form.validate_on_submit():
+            user=User.query.filter_by(email=form.email.data).first()
+            if user:
+                if user.password_hash == form.password.data:
+                    login_user(user)
+                    return redirect(url_for('index'))
+                else:
+                    return render_template("dl_login.html", form=form, error=True)
+            else:
+                return render_template("dl_login.html", form=form, error=True)
+        else:
+            return render_template("dl_login.html", form=form, error=True)
+
+
+#Presents the Support for Publishers page
 @app.route("/publishers/", methods=["GET", "POST"])
 def publishers_page():
     if request.method == "GET":
          return render_template("publisher.html", error=False)
 
+#Presents the Support for Publishers page
+@app.route("/dl_publishers/", methods=["GET", "POST"])
+def dl_publishers_page():
+    if request.method == "GET":
+         return render_template("dl_publisher.html", error=False)
+
+#Presents the  Support for Teachers page
 @app.route("/teachers/", methods=["GET", "POST"])
 def teachers_page():
     if request.method == "GET":
          return render_template("teachers.html", error=False)
+
+#Presents the  Support for Teachers page
+@app.route("/dl_teachers/", methods=["GET", "POST"])
+def dl_teachers_page():
+    if request.method == "GET":
+         return render_template("dl_teachers.html", error=False)
+
+#Presents the  Copyright page
+@app.route("/copyright/", methods=["GET", "POST"])
+def copyright_page():
+    if request.method == "GET":
+         return render_template("copyright.html", error=False)
+
+#Presents the  Copyright page
+@app.route("/dl_copyright/", methods=["GET", "POST"])
+def dl_copyright_page():
+    if request.method == "GET":
+         return render_template("dl_copyright.html", error=False)
+
 
 @app.route("/terms/", methods=["GET", "POST"])
 def terms():
     if request.method == "GET":
          return render_template("terms.html", error=False)
 
+@app.route("/dl_terms/", methods=["GET", "POST"])
+def dl_terms():
+    if request.method == "GET":
+         return render_template("dl_terms.html", error=False)
+
+#Presents the About Us page
 @app.route("/about/", methods=["GET", "POST"])
 def about_page():
     if request.method == "GET":
          return render_template("about.html", error=False)
+
+#Presents the About Us page
+@app.route("/dl_about/", methods=["GET", "POST"])
+def dl_about_page():
+    if request.method == "GET":
+         return render_template("dl_about.html", error=False)
+
+
+#Presents the Privacy page
+@app.route("/privacy/", methods=["GET", "POST"])
+def privacy_page():
+    if request.method == "GET":
+         return render_template("privacy.html", error=False)
+
+#Presents the Privacy page
+@app.route("/dl_privacy/", methods=["GET", "POST"])
+def dl_privacy_page():
+    if request.method == "GET":
+         return render_template("dl_privacy.html", error=False)
+
+
+#Function that accepts URI from the bookmarklet code and generates a new Clue Pony
+@app.route("/urlgenerator/")
+def urlgenerator():
+    uri = request.args.get('uri')
+    LastRow = Cluepony.query.count()
+    url = su.encode_url(LastRow)
+    current_user=User.query.filter_by(email='pcoyne@bcs.org').first()
+    if current_user is None:
+        current_user=User.query.filter_by(email='pcoyne@bcs.org').first()
+    cluepony = Cluepony(content=uri, encoded_url=url, publisher=current_user)
+    db.session.add(cluepony)
+    db.session.commit()
+
+    return redirect(url_for('generator'))
 
 @app.route("/generator/", methods=["GET", "POST"])
 def generator():
@@ -435,10 +602,35 @@ def generator():
 
     return redirect(url_for('generator'))
 
+@app.route("/dl_generator/", methods=["GET", "POST"])
+def dl_generator():
+    if request.method == "GET":
+         #return render_template("generator.html", clueponies=Cluepony.query.all())
+         CluePonyPosts = Cluepony.query.count()
+         ListofCluePonies = Cluepony.query.order_by(Cluepony.posted.desc()).limit(10).all()
+         return render_template("dl_generator.html", clueponies = ListofCluePonies, NewCluePonies = CluePonyPosts)
+
+    if not validators.url(request.form["contents"]):
+        #return redirect(url_for('generator'))
+        return render_template("dl_generator.html", error=True)
+
+    LastRow = Cluepony.query.count()
+    url = su.encode_url(LastRow)
+    cluepony = Cluepony(content=request.form["contents"], encoded_url=url,publisher=current_user)
+    db.session.add(cluepony)
+    db.session.commit()
+
+    return redirect(url_for('dl_generator'))
+
 @app.route('/resource/view/<short_url>')
 def resource(short_url):
     if request.method == "GET":
         return render_template('resource.html', cluepony_ID= short_url, error=False)
+
+@app.route('/resource/view/dl/<short_url>')
+def dl_resource(short_url):
+    if request.method == "GET":
+        return render_template('dl_resource.html', cluepony_ID= short_url, error=False)
 
 @app.route('/profile/view/<short_url>')
 def profile(short_url):
@@ -467,17 +659,34 @@ def decode(short_url):
 
     return redirect(redirect_url)
 
+@app.route('/r/dl/<short_url>')
+def dl_decode(short_url):
+    Destination_URL = Cluepony.query.filter_by(encoded_url=short_url).first()
+    event_id = Destination_URL.id
+    event = CluePonyEvent(event_id=event_id)
+    db.session.add(event)
+    db.session.commit()
+
+    redirect_url = Destination_URL.content
+    try:
+        return redirect(redirect_url)
+
+    except Exception as e:
+        print (e)
+
+    return redirect(redirect_url)
+
 @app.route('/gCallback')
 def callback():
     # Redirect user to home page if already logged in.
     if current_user is None and current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('dl_index'))
     if 'error' in request.args:
         if request.args.get('error') == 'access_denied':
             return 'You denied access.'
         return 'Error encountered.'
     if 'code' not in request.args and 'state' not in request.args:
-        return redirect(url_for('login'))
+        return redirect(url_for('dl_login'))
     else:
         # Execution reaches here when user has
         # successfully authenticated our app.
@@ -505,7 +714,7 @@ def callback():
             db.session.add(user)
             db.session.commit()
             login_user(user)
-            return redirect(url_for('index'))
+            return redirect(url_for('dl_index'))
         return 'Could not fetch your information.'
 
 @app.route("/logout")
@@ -513,6 +722,12 @@ def callback():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route("/dl logout")
+@login_required
+def dl_logout():
+    logout_user()
+    return redirect(url_for('dl_index'))
 
 @app.errorhandler(404)
 def page_not_found(e):
